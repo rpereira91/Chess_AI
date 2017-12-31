@@ -3,7 +3,7 @@ package pieces;
 import helper.RowCol;
 public class King extends Piece {
     private boolean firstMove;
-    King(ColorType colorType){
+    public King(ColorType colorType){
         setPieceType(PieceType.KING);
         setPieceColorType(colorType);
         setFirstMove(true);
@@ -23,7 +23,7 @@ public class King extends Piece {
         firstMove = move;
     }
     @Override
-    boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(RowCol start, RowCol end) {
         return false;
     }
 }

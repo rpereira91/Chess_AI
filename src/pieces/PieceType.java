@@ -1,5 +1,5 @@
 package pieces;
 
-enum PieceType{
+public enum PieceType {
     ROOK,KNIGHT,BISHOP,QUEEN,KING,PAWN
 }

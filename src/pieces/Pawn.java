@@ -4,7 +4,7 @@ import helper.RowCol;
 
 public class Pawn extends Piece {
     private boolean firstMove;
-    Pawn(ColorType colorType){
+    public Pawn(ColorType colorType){
         setPieceType(PieceType.PAWN);
         setPieceColorType(colorType);
         setFirstMove(true);
@@ -25,7 +25,7 @@ public class Pawn extends Piece {
         firstMove = move;
     }
     @Override
-    boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(RowCol start, RowCol end) {
         //the white pieces move up
         if(getPieceColorType() == ColorType.WHITE){
             //if it's a forward move in the same column its legal

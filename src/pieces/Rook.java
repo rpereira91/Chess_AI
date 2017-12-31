@@ -4,7 +4,7 @@ import helper.RowCol;
 
 public class Rook extends Piece {
     private boolean firstMove;
-    Rook(ColorType colorType){
+    public Rook(ColorType colorType){
         setPieceType(PieceType.ROOK);
         setPieceColorType(colorType);
         setPieceCost(5);
@@ -25,7 +25,7 @@ public class Rook extends Piece {
     }
     //if the piece is staying in the same row or column it's a valid move
     @Override
-    boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(RowCol start, RowCol end) {
         if(start.getRow() - end.getRow() == 0 || start.getCol() - end.getCol() == 0)
             return true;
         return false;
