@@ -1,11 +1,12 @@
 package pieces;
 import helper.RowCol;
 
-abstract class Piece {
+public abstract class Piece {
 
     private PieceType pieceType; //the type of piece
-    private Color pieceColor; //is the piece black or white
+    private ColorType pieceColorType; //is the piece black or white
     private int pieceCost; //the value or cost of the piece (used for the AI)
+
 
     public int getPieceCost() {
         return pieceCost;
@@ -24,21 +25,22 @@ abstract class Piece {
         this.pieceType = pieceType;
     }
 
-    public Color getPieceColor() {
-        return pieceColor;
+    public ColorType getPieceColorType() {
+        return pieceColorType;
     }
 
-    public void setPieceColor(Color pieceColor) {
-        this.pieceColor = pieceColor;
+    public void setPieceColorType(ColorType pieceColorType) {
+        this.pieceColorType = pieceColorType;
     }
 
-    abstract boolean properMove(RowCol start, RowCol end);
+    abstract boolean legalMove(RowCol start, RowCol end);
     void madeFirstMove(){
     }
     //used for the king and rook for castling and the pawn for first double jump move
     boolean firstMove(){
         return false;
     }
-    void setFirstMove(){
+
+    void setFirstMove(boolean firstMove){
     }
 }

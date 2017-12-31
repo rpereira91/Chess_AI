@@ -3,13 +3,19 @@ package pieces;
 import helper.RowCol;
 
 public class Knight extends Piece {
-    Knight(Color color){
+    Knight(ColorType colorType){
         setPieceType(PieceType.KNIGHT);
-        setPieceColor(color);
+        setPieceColorType(colorType);
+        setPieceCost(3);
     }
 
+    //if the knight can move in an L shape in either direction it's a legal move
     @Override
-    boolean properMove(RowCol start, RowCol end) {
+    boolean legalMove(RowCol start, RowCol end) {
+        if(Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 2)
+            return true;
+        if (Math.abs(start.getCol() - end.getCol()) == 2 && Math.abs(start.getRow() - end.getRow()) == 1)
+            return true;
         return false;
     }
 }

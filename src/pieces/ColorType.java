@@ -1,5 +1,5 @@
 package pieces;
 
-enum Color{
+enum ColorType {
     WHITE,BLACK
 }

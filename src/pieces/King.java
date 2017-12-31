@@ -1,15 +1,29 @@
 package pieces;
 
 import helper.RowCol;
-
 public class King extends Piece {
-    King(Color color){
+    private boolean firstMove;
+    King(ColorType colorType){
         setPieceType(PieceType.KING);
-        setPieceColor(color);
+        setPieceColorType(colorType);
+        setFirstMove(true);
+        setPieceCost(200);
     }
 
     @Override
-    boolean properMove(RowCol start, RowCol end) {
+    boolean firstMove(){
+        return firstMove;
+    }
+    @Override
+    void madeFirstMove(){
+        firstMove = false;
+    }
+    @Override
+    void setFirstMove(boolean move){
+        firstMove = move;
+    }
+    @Override
+    boolean legalMove(RowCol start, RowCol end) {
         return false;
     }
 }
