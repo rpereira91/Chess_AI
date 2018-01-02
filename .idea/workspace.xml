@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c18e3f0e-70b0-4d32-8946-461a162d23cb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/helper/RowCol.java" afterPath="$PROJECT_DIR$/src/helper/Position.java" />
-      <change beforePath="$PROJECT_DIR$/src/logic/ChessBoard.java" afterPath="$PROJECT_DIR$/src/logic/ChessBoard.java" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Move.java" afterPath="$PROJECT_DIR$/src/logic/Move.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Bishop.java" afterPath="$PROJECT_DIR$/src/pieces/Bishop.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/King.java" afterPath="$PROJECT_DIR$/src/pieces/King.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Knight.java" afterPath="$PROJECT_DIR$/src/pieces/Knight.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Pawn.java" afterPath="$PROJECT_DIR$/src/pieces/Pawn.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Piece.java" afterPath="$PROJECT_DIR$/src/pieces/Piece.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Queen.java" afterPath="$PROJECT_DIR$/src/pieces/Queen.java" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Rook.java" afterPath="$PROJECT_DIR$/src/pieces/Rook.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess_AI/helper/RowCol.class" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -212,6 +202,24 @@
             <path>
               <item name="Chess_AI" type="b2602c69:ProjectViewProjectNode" />
               <item name="Chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess_AI" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Chess_AI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -353,7 +361,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="699" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -368,7 +375,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
