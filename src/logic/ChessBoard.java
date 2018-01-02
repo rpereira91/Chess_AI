@@ -3,6 +3,9 @@ package logic;
 import helper.Position;
 import pieces.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ChessBoard {
     //the game board
     private Tile[][] gameBoard;
@@ -109,6 +112,33 @@ public class ChessBoard {
             }
         }
     }
+
+    // the move for a given piece
+    List<Position> getMoves (ColorType currentColor, Position p) {
+        //a list of all the possible moves
+        List<Position> allMoves = new LinkedList<>();
+        //if the current position has a piece and it's the same color as the passed color check the entire board
+        if (containsPiece(p) && currentColor == getColorType(p)) {
+            for (int i = 0 ; i < 8 ; i++) {
+                for (int j = 0 ; j < 8 ; j++) {
+                    /*
+                    if it's a leal move for the piece on the tile, and if that piece is able to move freely alon that path
+                    and if the tile doesn't have a piece that's not the same color as the current piece
+                    check if that move leaves the King open to attack, if not, add that move to the list
+                    */
+                    if (isLegalMove(p, new Position(i, j)) &&
+                            checkPiecePath(p, new Position(i, j), getPieceType(p)) &&
+                            (!containsPiece(new Position(i, j)) || getColorType(new Position(i, j)) != currentColor)) {
+                        if (!anyCouldAttackKing(p, new Position(i, j))) {
+                            allMoves.add(new Position(i, j));
+                        }
+                    }
+                }
+            }
+        }
+        return allMoves;
+    }
+
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
         if(containsPiece(start))
@@ -238,4 +268,6 @@ public class ChessBoard {
         }
         return false;
     }
+
+
 }
