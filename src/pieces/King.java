@@ -25,6 +25,8 @@ public class King extends Piece {
     }
     @Override
     public boolean legalMove(Position start, Position end) {
+        //if its the king's first move it can jump 2 places on the same row
+        if (firstMove() && start.getRow() == end.getRow() && Math.abs(start.getCol() - end.getCol()) == 2) return true;
         //if it's a diagonal move that is one unit away its valid
         if(Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 1)
             return true;

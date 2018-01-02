@@ -7,14 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChessBoard {
-    //the game board
+    //the game gameBoard
     private Tile[][] gameBoard;
-    //the size of the game board, it's normally 8x8
+    //the size of the game gameBoard, it's normally 8x8
     public final int SIZE = 8;
     ChessBoard(){
         gameBoard = new Tile[SIZE][SIZE];
     }
-    //creates an empty game board with no pieces on it
+    //creates an empty game gameBoard with no pieces on it
     public void createEmptyGameBoard(){
         for (int x = 0; x < SIZE; x++) {
             for (int y = 0; y < SIZE; y++) {
@@ -23,7 +23,7 @@ public class ChessBoard {
 
         }
     }
-    //create a game board with pieces on it
+    //create a game gameBoard with pieces on it
     public void initilizeGameBoard(){
         createEmptyGameBoard();
         //set the black pieces
@@ -67,7 +67,7 @@ public class ChessBoard {
     }
     //gets the type of piece at the Position
     PieceType getPieceType(Position position){
-        if(gameBoard[position.getCol()][position.getRow()].tileOccupied()){
+        if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].getPiece().getPieceType();
         }
         return null;
@@ -76,6 +76,13 @@ public class ChessBoard {
     ColorType getColorType(Position position){
         if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].getPiece().getPieceColorType();
+        }
+        return null;
+    }
+    //takes the piece off the tile
+    Piece removePiece(Position position){
+        if(containsPiece(position)){
+            return gameBoard[position.getCol()][position.getRow()].takePiece();
         }
         return null;
     }
@@ -117,7 +124,7 @@ public class ChessBoard {
     List<Position> getMoves (ColorType currentColor, Position p) {
         //a list of all the possible moves
         List<Position> allMoves = new LinkedList<>();
-        //if the current position has a piece and it's the same color as the passed color check the entire board
+        //if the current position has a piece and it's the same color as the passed color check the entire gameBoard
         if (containsPiece(p) && currentColor == getColorType(p)) {
             for (int i = 0 ; i < 8 ; i++) {
                 for (int j = 0 ; j < 8 ; j++) {
@@ -129,7 +136,7 @@ public class ChessBoard {
                     if (isLegalMove(p, new Position(i, j)) &&
                             checkPiecePath(p, new Position(i, j), getPieceType(p)) &&
                             (!containsPiece(new Position(i, j)) || getColorType(new Position(i, j)) != currentColor)) {
-                        if (!anyCouldAttackKing(p, new Position(i, j))) {
+                        if (!allPiecesToKing(p, new Position(i, j))) {
                             allMoves.add(new Position(i, j));
                         }
                     }
@@ -138,7 +145,102 @@ public class ChessBoard {
         }
         return allMoves;
     }
+    //if the passed move was made, will the king be open to attack
+    boolean allPiecesToKing ( Position start, Position end ) {
 
+        Piece piece;
+        Piece dest = null;
+        Piece castlingPiece = null;
+
+        boolean canAttack;
+        //take the piece from the starting position
+        piece = removePiece(start);
+        //if the destination tile has a piece
+        if (containsPiece(end)) {
+            //the piece at the destination is not the same color as the piece at the start make the dest piece the end piece
+            if (getColorType(end) != piece.getPieceColorType()) dest = removePiece(end);
+            else return false; //if they are the same color we know the move won't be made and its false
+        }
+        // move the piece to the destination
+        setPiece(end, piece);
+        // if the piece is a king and it's the first move the king has made
+        if (piece.getPieceType() == PieceType.KING && piece.firstMove()) {
+            //check for a castling move, if the destination is a rook on the right side or the left side
+            if (start.getCol() - end.getCol() == -2 && start.getCol() == 4 &&
+                    containsPiece(new Position(end.getCol() + 1, end.getRow())) &&
+                    getPieceType(new Position(end.getCol() + 1, end.getRow())) == PieceType.ROOK) {
+                //check if it's the rook's first move
+                if (!(castlingPiece = removePiece(new Position(end.getCol() + 1, end.getRow()))).firstMove())
+                    setPiece(new Position(end.getCol() + 1, end.getRow()), castlingPiece);
+                else setPiece(new Position(end.getCol() - 1, end.getRow()), castlingPiece);
+            }
+            else if (start.getCol() - end.getCol() == 2 && start.getCol() == 4 &&
+                    containsPiece(new Position(end.getCol() - 2, end.getRow())) &&
+                    getPieceType(new Position(end.getCol() - 2, end.getRow())) == PieceType.ROOK) {
+                if ((castlingPiece = removePiece(new Position(end.getCol() - 2, end.getRow()))).firstMove()) {
+                    setPiece(new Position(end.getCol() + 1, end.getRow()), castlingPiece);
+                } else {
+                    setPiece(new Position(end.getCol() - 2, end.getRow()), castlingPiece);
+                }
+            }
+        }
+        //check if any of the enemy pieces can attack the king if the castling has been completed
+        if (getColorType(end) == ColorType.WHITE) {
+            canAttack = colorCanAttackKing(ColorType.BLACK);
+        } else {
+            canAttack = colorCanAttackKing(ColorType.WHITE);
+        }
+        piece = removePiece(end);
+        //undo the castling if it did happen
+        if (piece.getPieceType() == PieceType.KING && piece.firstMove()) { // put castle back
+            if (start.getCol() - end.getCol() == -2 && castlingPiece != null && castlingPiece.firstMove()) {
+                setPiece(new Position(end.getCol() + 1, end.getRow()), removePiece(new Position(end.getCol() - 1, end.getRow())));
+            } else if (start.getCol() - end.getCol() == 2 && castlingPiece != null && castlingPiece.firstMove()) {
+                setPiece(new Position(end.getCol() - 2, end.getRow()), removePiece(new Position(end.getCol() + 1, end.getRow())));
+            }
+        }
+        //reset the pieces
+        if (dest != null) {
+            setPiece(end, dest);
+        }
+        setPiece(start, piece);
+        //confirm the attack possibilities
+        return canAttack;
+    }
+    //returns true if any of the passed through color type can attack the king
+    boolean colorCanAttackKing(ColorType colorType ) {
+        //run through the entire gameBoard
+        for (int i = 0 ; i < 8 ; i++) {
+            for (int j = 0 ; j < 8 ; j++) {
+                //if that position has a piece that is the same color as the passed by value
+                if (containsPiece(new Position(i, j)) && getColorType(new Position(i, j)) == colorType) {
+                    if (positionCanAttackKing(new Position(i, j))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    // true if the passed position can can attack the king
+    boolean positionCanAttackKing ( Position position ) {
+
+        for (int i = 0 ; i < 8 ; i++) {
+            for (int j = 0 ; j < 8 ; j++) {
+                //if the current location has a piece that is a king of the opposite color as the piece passed to it
+                if (containsPiece(new Position(i, j)) &&
+                        getPieceType(new Position(i, j)) == PieceType.KING &&
+                        getColorType(new Position(i, j)) != getColorType(position)) {
+                    //if the move from the passed position to the new one is legal that position can attack the king
+                    if (isLegalMove(position, new Position(i, j)) &&
+                            checkPiecePath(position, new Position(i, j), getPieceType(position))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
         if(containsPiece(start))
@@ -246,8 +348,35 @@ public class ChessBoard {
         return false;
     }
     public boolean kingPath(Position start, Position end){
+        //if its the king's first move
+        if (gameBoard[start.getCol()][start.getRow()].getPiece().firstMove()) {
+            // if the king is castling on the left side or the right side of the king
+            if (start.getCol() == 4 && start.getCol() - end.getCol() == -2 &&
+                    !gameBoard[start.getCol() - 1][start.getRow()].tileOccupied() &&
+                    !gameBoard[start.getCol() - 2][start.getRow()].tileOccupied() &&
+                    !gameBoard[start.getCol() - 3][start.getRow()].tileOccupied()) {
 
-        return false;
+                if (gameBoard[start.getCol() - 4][start.getRow()].tileOccupied())
+                    if (gameBoard[start.getCol() - 4][start.getRow()].getPiece().firstMove())
+                        if (gameBoard[start.getCol() - 4][start.getRow()].getPiece().getPieceType() == PieceType.ROOK)
+                            return true;
+                return false;
+            } else if (start.getCol() == 4 && start.getCol() - end.getCol() == 2 &&
+                    !gameBoard[start.getCol() + 1][start.getCol()].tileOccupied() &&
+                    !gameBoard[start.getCol() + 2][start.getRow()].tileOccupied()) {
+                if (gameBoard[start.getCol() + 3][start.getRow()].tileOccupied())
+                    if (gameBoard[start.getCol() + 3][start.getRow()].getPiece().firstMove())
+                        if (gameBoard[start.getCol() + 3][start.getRow()].getPiece().getPieceType() == PieceType.ROOK)
+                            return true;
+                return false;
+            }
+        }
+        if ((Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 0) ||
+                (Math.abs(start.getCol() - end.getCol()) == 0 && Math.abs(start.getRow() - end.getRow()) == 1) ||
+                (Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 1))
+            return true;
+        else return false;
+
     }
     //universal check for path based on the piece type passed
     boolean checkPiecePath(Position start, Position end, PieceType pieceType){

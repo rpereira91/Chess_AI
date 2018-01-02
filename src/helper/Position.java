@@ -9,9 +9,9 @@ public class Position {
     Position(){
     }
     //set the row and col for the Coordinate
-    public Position(int row, int col){
-        this.row = row;
+    public Position(int col, int row){
         this.col = col;
+        this.row = row;
     }
 
     public int getRow() {
