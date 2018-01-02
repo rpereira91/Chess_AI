@@ -1,6 +1,6 @@
 package pieces;
 
-import helper.RowCol;
+import helper.Position;
 
 public class Knight extends Piece {
     public Knight(ColorType colorType){
@@ -11,7 +11,7 @@ public class Knight extends Piece {
 
     //if the knight can move in an L shape in either direction it's a legal move
     @Override
-    public boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(Position start, Position end) {
         if(Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 2)
             return true;
         if (Math.abs(start.getCol() - end.getCol()) == 2 && Math.abs(start.getRow() - end.getRow()) == 1)

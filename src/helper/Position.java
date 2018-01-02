@@ -1,15 +1,15 @@
 package helper;
 
-//This is a basic Coordinate class called helper.RowCol, makes it easier to keep track of the
+//This is a basic Coordinate class called helper.Position, makes it easier to keep track of the
 // position as opposed to passing seperate rows and columns
-public class RowCol {
+public class Position {
     private int row;
     private int col;
     //default constructor
-    RowCol(){
+    Position(){
     }
     //set the row and col for the Coordinate
-    RowCol(int row, int col){
+    Position(int row, int col){
         this.row = row;
         this.col = col;
     }

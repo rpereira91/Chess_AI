@@ -1,6 +1,6 @@
 package pieces;
 
-import helper.RowCol;
+import helper.Position;
 
 public class Bishop extends Piece {
     public Bishop(ColorType colorType){
@@ -11,7 +11,7 @@ public class Bishop extends Piece {
     //the start and end are on a diagonal it is a valid move
     //the absolute value is used to account for movement in both directions
     @Override
-    public boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(Position start, Position end) {
         if (Math.abs(start.getCol() - end.getCol()) == Math.abs(start.getCol()-end.getCol()))
             return true;
         return false;

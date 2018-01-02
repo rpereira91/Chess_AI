@@ -1,6 +1,6 @@
 package pieces;
 
-import helper.RowCol;
+import helper.Position;
 
 public class Rook extends Piece {
     private boolean firstMove;
@@ -12,7 +12,7 @@ public class Rook extends Piece {
     }
     //logic used for castling
     @Override
-    boolean firstMove(){
+    public boolean firstMove(){
         return firstMove;
     }
     @Override
@@ -25,7 +25,7 @@ public class Rook extends Piece {
     }
     //if the piece is staying in the same row or column it's a valid move
     @Override
-    public boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(Position start, Position end) {
         if(start.getRow() - end.getRow() == 0 || start.getCol() - end.getCol() == 0)
             return true;
         return false;

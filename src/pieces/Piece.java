@@ -1,5 +1,5 @@
 package pieces;
-import helper.RowCol;
+import helper.Position;
 
 public abstract class Piece {
 
@@ -33,11 +33,11 @@ public abstract class Piece {
         this.pieceColorType = pieceColorType;
     }
 
-    public abstract boolean legalMove(RowCol start, RowCol end);
+    public abstract boolean legalMove(Position start, Position end);
     void madeFirstMove(){
     }
     //used for the king and rook for castling and the pawn for first double jump move
-    boolean firstMove(){
+    public boolean firstMove(){
         return false;
     }
 

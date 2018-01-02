@@ -1,6 +1,6 @@
 package pieces;
 
-import helper.RowCol;
+import helper.Position;
 
 public class Pawn extends Piece {
     private boolean firstMove;
@@ -13,7 +13,7 @@ public class Pawn extends Piece {
 
     //Logic used for the first move jump
     @Override
-    boolean firstMove(){
+    public boolean firstMove(){
         return firstMove;
     }
     @Override
@@ -25,7 +25,7 @@ public class Pawn extends Piece {
         firstMove = move;
     }
     @Override
-    public boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(Position start, Position end) {
         //the white pieces move up
         if(getPieceColorType() == ColorType.WHITE){
             //if it's a forward move in the same column its legal

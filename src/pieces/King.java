@@ -1,6 +1,7 @@
 package pieces;
 
-import helper.RowCol;
+import helper.Position;
+
 public class King extends Piece {
     private boolean firstMove;
     public King(ColorType colorType){
@@ -11,7 +12,7 @@ public class King extends Piece {
     }
 
     @Override
-    boolean firstMove(){
+    public boolean firstMove(){
         return firstMove;
     }
     @Override
@@ -23,7 +24,16 @@ public class King extends Piece {
         firstMove = move;
     }
     @Override
-    public boolean legalMove(RowCol start, RowCol end) {
+    public boolean legalMove(Position start, Position end) {
+        //if it's a diagonal move that is one unit away its valid
+        if(Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 1)
+            return true;
+        //if the movement is on the same row with a one unit move in either direction
+        else if(Math.abs(start.getCol() - end.getCol()) == 1 && start.getRow() == end.getRow())
+            return true;
+        //if the movement is on the same column and the move is one unit in either direction
+        else if(Math.abs(start.getRow() - end.getRow()) == 1 && start.getCol() == end.getCol())
+            return true;
         return false;
     }
 }

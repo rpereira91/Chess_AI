@@ -1,21 +1,21 @@
 package logic;
 
-import helper.RowCol;
+import helper.Position;
 
 public class Move {
-    private RowCol start;
-    private RowCol end;
+    private Position start;
+    private Position end;
 
-    Move(RowCol start, RowCol end){
+    Move(Position start, Position end){
         this.start = start;
         this.end = end;
     }
 
-    public RowCol getStart() {
+    public Position getStart() {
         return start;
     }
 
-    public RowCol getEnd() {
+    public Position getEnd() {
         return end;
     }
 }
