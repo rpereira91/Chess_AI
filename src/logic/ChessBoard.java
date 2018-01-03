@@ -121,7 +121,7 @@ public class ChessBoard {
     }
 
     // the move for a given piece
-    List<Position> getMoves (ColorType currentColor, Position p) {
+    List<Position> getAllMoves(ColorType currentColor, Position p) {
         //a list of all the possible moves
         List<Position> allMoves = new LinkedList<>();
         //if the current position has a piece and it's the same color as the passed color check the entire gameBoard
