@@ -34,13 +34,13 @@ public abstract class Piece {
     }
 
     public abstract boolean legalMove(Position start, Position end);
-    void madeFirstMove(){
+    public void madeFirstMove(){
     }
     //used for the king and rook for castling and the pawn for first double jump move
     public boolean firstMove(){
         return false;
     }
 
-    void setFirstMove(boolean firstMove){
+    public void setFirstMove(boolean firstMove){
     }
 }

@@ -16,11 +16,11 @@ public class Rook extends Piece {
         return firstMove;
     }
     @Override
-    void madeFirstMove(){
+    public void madeFirstMove(){
         firstMove = false;
     }
     @Override
-    void setFirstMove(boolean move){
+    public void setFirstMove(boolean move){
         firstMove = move;
     }
     //if the piece is staying in the same row or column it's a valid move

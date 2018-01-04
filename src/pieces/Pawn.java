@@ -17,11 +17,11 @@ public class Pawn extends Piece {
         return firstMove;
     }
     @Override
-    void madeFirstMove(){
+    public void madeFirstMove(){
         firstMove = false;
     }
     @Override
-    void setFirstMove(boolean move){
+    public void setFirstMove(boolean move){
         firstMove = move;
     }
     @Override

@@ -1,3 +1,7 @@
+/*
+Board eval us done using: https://chessprogramming.wikispaces.com/Evaluation
+ */
+
 package logic;
 
 import helper.Position;
@@ -398,5 +402,83 @@ public class ChessBoard {
         return false;
     }
 
+    //this handles castling and pawn moving for the first time
+    Piece moveSpecialPiece ( Move move) {
+        //position variables to make it a bit easier when looking up moves
+        Position moveStart = move.getStart();
+        Position moveEnd = move.getEnd();
+        //tiles from the start to the end
+        Tile startTile = gameBoard[moveStart.getCol()][moveStart.getRow()];
+        Tile endTile = gameBoard[moveEnd.getCol()][moveEnd.getRow()];
+        //pieces from the start to the end
+        Piece startPiece = startTile.getPiece();
+        Piece endPiece = null;
+        //if the start piece is null, there's no way for a move to be made
+        if (startPiece == null) {
+            return null;
+        }
+        //if the pawn is moving for the first time and its moving twice set the first move to true so it can't move twice again
+        if (startPiece.getPieceType() == PieceType.PAWN) {
+            if (startPiece.firstMove()) if (Math.abs(moveStart.getRow() - moveEnd.getRow()) == 2) {
+                startPiece.setFirstMove(true);
+            } else startPiece.setFirstMove(false);
+            //if the rook or king is moving for the first time set that piece to already moved, so it can't be used for castling
+        } else if (startPiece.getPieceType() == PieceType.ROOK || startPiece.getPieceType() == PieceType.KING) {
+            if (startPiece.firstMove()) startPiece.setFirstMove(false);
+
+        }
+        //if the end piece is occupied get the piece
+        if (endTile.tileOccupied()) {
+            endPiece = endTile.takePiece();
+        }
+        endTile.setPiece(startTile.takePiece());
+
+        //castle the pieces if if's a castling move
+        if (getPieceType(move.getEnd()) == PieceType.KING &&
+                Math.abs(move.getEnd().getCol()-move.getStart().getCol()) == 2) {
+            if (move.getEnd().getCol() == 6) movePiece(new Position(7, move.getEnd().getRow()),
+                    new Position(5, move.getEnd().getRow()));
+            else if (move.getEnd().getCol() == 2) {
+                movePiece(new Position(0, move.getEnd().getRow()),
+                        new Position(3, move.getEnd().getRow()));
+            }
+        }
+
+        return endPiece;
+    }
+    // undoes the passed move and any special moves
+    void undoSpecialMove ( Move move, Piece piece, boolean firstMove, boolean pawnPromote ) {
+        //reverse the move
+        movePiece(move.getEnd(), move.getStart());
+        //if there is a piece place the piece down at the destination of the move
+        if (piece != null) setPiece(move.getEnd(), piece);
+        //set the first move if there is a piece at the start position
+        if (firstMove && containsPiece(move.getStart()))
+            gameBoard[move.getStart().getCol()][move.getStart().getRow()].getPiece().madeFirstMove();
+
+        // undo castling if castling has happened
+        if (getPieceType(move.getStart()) == PieceType.KING &&
+                gameBoard[move.getStart().getCol()][move.getStart().getRow()].getPiece().firstMove() &&
+                move.getStart().getCol() == 4) {
+            if (move.getStart().getCol() - move.getEnd().getCol() == -2 &&
+                    containsPiece(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())) &&
+                    getPieceType(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())) == PieceType.ROOK &&
+                    gameBoard[move.getEnd().getCol() - 1][move.getStart().getRow()].getPiece().firstMove()) {
+                setPiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow()),
+                        removePiece(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())));
+            } else if (move.getStart().getCol() - move.getEnd().getCol() == 2 &&
+                    containsPiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())) &&
+                    getPieceType(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())) == PieceType.ROOK&&
+                    gameBoard[move.getEnd().getCol() + 1][move.getStart().getRow()].getPiece().firstMove()) {
+                setPiece(new Position(move.getEnd().getCol() - 2, move.getEnd().getRow()),
+                        removePiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())));
+            }
+        }
+
+        // replace pawn if promotion has happened
+        if (pawnPromote) {
+            replacePiece(move.getStart(), PieceType.PAWN);
+        }
+    }
 
 }
