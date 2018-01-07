@@ -72,22 +72,22 @@ public class Player {
                 if (board.containsPiece(position)) {
                     PieceType tempPiece = board.getPieceType(position);
                     if (tempPiece == PieceType.PAWN) {
-                        gamePiece = new Pawn(board.getColorType(position));
+                        gamePiece = new Pawn(board.getColorType(position), newChessBoard);
 
                     } else if (tempPiece == PieceType.ROOK) {
-                        gamePiece = new Rook(board.getColorType(position));
+                        gamePiece = new Rook(board.getColorType(position), newChessBoard);
 
                     } else if (tempPiece == PieceType.KNIGHT) {
-                        gamePiece = new Knight(board.getColorType(position));
+                        gamePiece = new Knight(board.getColorType(position), newChessBoard);
 
                     } else if (tempPiece == PieceType.BISHOP) {
-                        gamePiece = new Bishop(board.getColorType(position));
+                        gamePiece = new Bishop(board.getColorType(position), newChessBoard);
 
                     } else if (tempPiece == PieceType.KING) {
-                        gamePiece = new King(board.getColorType(position));
+                        gamePiece = new King(board.getColorType(position), newChessBoard);
 
                     } else if (tempPiece == PieceType.QUEEN) {
-                        gamePiece = new Queen(board.getColorType(position));
+                        gamePiece = new Queen(board.getColorType(position), newChessBoard);
 
                     }
                     newChessBoard.setPiece(position, gamePiece);

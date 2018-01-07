@@ -44,4 +44,8 @@ public class Position {
     public boolean getColor(){
         return color;
     }
+
+    public static boolean isValid(int col, int row){
+        return col >= 0 && col < 8 && row >= 0 && row < 8;
+    }
 }
