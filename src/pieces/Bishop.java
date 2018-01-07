@@ -12,7 +12,6 @@ public class Bishop extends Piece {
     //the absolute value is used to account for movement in both directions
     @Override
     public boolean legalMove(Position start, Position end) {
-        System.out.println("BISHOP");
         if (Math.abs(start.getCol() - end.getCol()) == Math.abs(start.getRow()-end.getRow()))
             return true;
         return false;
