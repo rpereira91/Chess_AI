@@ -2,11 +2,13 @@ package GUI;
 
 import helper.Position;
 import logic.ChessBoard;
+import pieces.ColorType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class GameBoard extends JPanel {
     int size = 8;
@@ -15,6 +17,7 @@ public class GameBoard extends JPanel {
     GameTile[][] tiles;
 
     GameTile previousTile;
+    List<Position> possiblePositions;
 
     public GameBoard() {
         setLayout(new GridLayout(size, size));
@@ -51,13 +54,24 @@ public class GameBoard extends JPanel {
             // We just clicked on a non empty tile and last click was on a non empty tile
             if (previousTile != null){
                 // Clicked on the same tile, deselect it
-                if (previousTile == tile) return;
-                // Logic for attacking
+                if (previousTile == tile){
+                    resetSelectedTilesBackground();
+                    previousTile = null;
+                    return;
+                }else{
+                    // Logic for attacking
+                }
 
             // We just clicked on a non empty tile and it's our first click
             }else{
                 // Selecting a piece
                 previousTile = tile;
+                possiblePositions = chessBoard.getAllMoves(tilePosition);
+                System.out.println(possiblePositions.size());
+                for (Position position : possiblePositions){
+                    positionToGameTile(position).selectTile();
+                }
+
                 tile.selectTile();
             }
         }else{
@@ -69,14 +83,24 @@ public class GameBoard extends JPanel {
                 }
 
                 // Reset select state
-                previousTile.resetBackground();
-
+                resetSelectedTilesBackground();
                 previousTile = null;
             }
         }
         drawBoard();
     }
 
+    private void resetSelectedTilesBackground(){
+        previousTile.resetBackground();
+        for (Position position : possiblePositions){
+            positionToGameTile(position).resetBackground();
+        }
+    }
+
+
+    public GameTile positionToGameTile(Position position){
+        return tiles[position.getCol()][position.getRow()];
+    }
 
     public void drawBoard(){
         for (int i=0; i < tiles.length; i++){

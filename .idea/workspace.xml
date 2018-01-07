@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c18e3f0e-70b0-4d32-8946-461a162d23cb" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/GUI/GameBoard.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/GUI/GameTile.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GameFrame.java" afterPath="$PROJECT_DIR$/src/GUI/GameFrame.java" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GameBoard.java" afterPath="$PROJECT_DIR$/src/GUI/GameBoard.java" />
       <change beforePath="$PROJECT_DIR$/src/logic/ChessBoard.java" afterPath="$PROJECT_DIR$/src/logic/ChessBoard.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,18 +19,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Pawn.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pieces/Pawn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/logic/ChessBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="79" column="53" lean-forward="true" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+            <state relative-caret-position="55">
+              <caret line="166" column="37" lean-forward="false" selection-start-line="166" selection-start-column="26" selection-end-line="166" selection-end-column="37" />
               <folding>
-                <element signature="e#0#25482#0" expanded="true" />
+                <element signature="e#0#25985#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#getAllMoves#0;class#ChessBoard#0" expanded="false" />
                 <element signature="method#colorCanAttackKing#0;class#ChessBoard#0" expanded="false" />
                 <element signature="method#positionCanAttackKing#0;class#ChessBoard#0" expanded="false" />
-                <element signature="method#isLegalMove#0;class#ChessBoard#0" expanded="false" />
                 <element signature="method#pawnPath#0;class#ChessBoard#0" expanded="false" />
                 <element signature="method#bishopPath#0;class#ChessBoard#0" expanded="false" />
                 <element signature="method#rookPath#0;class#ChessBoard#0" expanded="false" />
@@ -44,42 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logic/Tile.java">
+      <file leaf-file-name="Bishop.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pieces/Bishop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logic/Player.java">
+      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/logic/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#510#511#0" expanded="true" />
-                <element signature="e#542#543#0" expanded="true" />
-                <element signature="e#609#610#0" expanded="true" />
-                <element signature="e#642#643#0" expanded="true" />
-                <element signature="e#723#724#0" expanded="true" />
-                <element signature="e#767#768#0" expanded="true" />
-                <element signature="method#getAllMoves#0;class#Player#0" expanded="false" />
-                <element signature="method#mergeLists#0;class#Player#0" expanded="false" />
-                <element signature="method#copyBoard#0;class#Player#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ColorType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pieces/ColorType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="527">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -149,25 +134,25 @@
       <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="60" column="34" lean-forward="true" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+            <state relative-caret-position="157">
+              <caret line="58" column="40" lean-forward="false" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#940#1139#0" expanded="true" />
-                <element signature="e#1138#1139#0" expanded="true" />
+                <element signature="e#1026#1225#0" expanded="true" />
+                <element signature="e#1224#1225#0" expanded="true" />
+                <element signature="e#3243#3244#0" expanded="true" />
+                <element signature="e#3309#3310#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Runner.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Runner.java">
+      <file leaf-file-name="Piece.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pieces/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -470,12 +455,12 @@
       <option name="presentableId" value="Default" />
       <updated>1514701277389</updated>
       <workItem from="1515285690513" duration="119000" />
-      <workItem from="1515285825778" duration="5758000" />
+      <workItem from="1515285825778" duration="6829000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5877000" />
+    <option name="totallyTimeSpent" value="6948000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -539,12 +524,10 @@
         <state relative-caret-position="17">
           <caret line="1" column="76" lean-forward="false" selection-start-line="1" selection-start-column="76" selection-end-line="1" selection-end-column="76" />
           <folding>
-            <element signature="e#0#25482#0" expanded="true" />
+            <element signature="e#0#25985#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getAllMoves#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#colorCanAttackKing#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#positionCanAttackKing#0;class#ChessBoard#0" expanded="false" />
-            <element signature="method#isLegalMove#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#pawnPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#bishopPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#rookPath#0;class#ChessBoard#0" expanded="false" />
@@ -726,12 +709,10 @@
         <state relative-caret-position="224">
           <caret line="220" column="5" lean-forward="true" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
           <folding>
-            <element signature="e#0#25482#0" expanded="true" />
+            <element signature="e#0#25985#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getAllMoves#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#colorCanAttackKing#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#positionCanAttackKing#0;class#ChessBoard#0" expanded="false" />
-            <element signature="method#isLegalMove#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#pawnPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#bishopPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#rookPath#0;class#ChessBoard#0" expanded="false" />
@@ -825,12 +806,10 @@
         <state relative-caret-position="3094">
           <caret line="220" column="5" lean-forward="true" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
           <folding>
-            <element signature="e#0#25482#0" expanded="true" />
+            <element signature="e#0#25985#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getAllMoves#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#colorCanAttackKing#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#positionCanAttackKing#0;class#ChessBoard#0" expanded="false" />
-            <element signature="method#isLegalMove#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#pawnPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#bishopPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#rookPath#0;class#ChessBoard#0" expanded="false" />
@@ -865,14 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pieces/Bishop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/logic/PlayerType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -897,22 +868,6 @@
             <element signature="e#306#307#0" expanded="false" />
             <element signature="e#332#333#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pieces/Piece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pieces/Pawn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1022,17 +977,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pieces/Piece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pieces/Bishop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pieces/Pawn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/logic/ChessBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="79" column="53" lean-forward="true" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+        <state relative-caret-position="55">
+          <caret line="166" column="37" lean-forward="false" selection-start-line="166" selection-start-column="26" selection-end-line="166" selection-end-column="37" />
           <folding>
-            <element signature="e#0#25482#0" expanded="true" />
+            <element signature="e#0#25985#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getAllMoves#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#colorCanAttackKing#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#positionCanAttackKing#0;class#ChessBoard#0" expanded="false" />
-            <element signature="method#isLegalMove#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#pawnPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#bishopPath#0;class#ChessBoard#0" expanded="false" />
             <element signature="method#rookPath#0;class#ChessBoard#0" expanded="false" />
@@ -1045,12 +1022,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="60" column="34" lean-forward="true" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+        <state relative-caret-position="157">
+          <caret line="58" column="40" lean-forward="false" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#940#1139#0" expanded="true" />
-            <element signature="e#1138#1139#0" expanded="true" />
+            <element signature="e#1026#1225#0" expanded="true" />
+            <element signature="e#1224#1225#0" expanded="true" />
+            <element signature="e#3243#3244#0" expanded="true" />
+            <element signature="e#3309#3310#0" expanded="true" />
           </folding>
         </state>
       </provider>

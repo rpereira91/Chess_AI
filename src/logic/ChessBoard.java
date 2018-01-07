@@ -164,6 +164,21 @@ public class ChessBoard {
         }
     }
 
+    public List<Position> getAllMoves(Position position){
+        List<Position> allMoves = new LinkedList<>();
+        if (containsPiece(position)){
+            for (int i=0; i < 8; i++){
+                for (int j=0; j < 8; j++){
+                    Position newPosition = new Position(i, j);
+                    if (isLegalMove(position, newPosition)){
+                        allMoves.add(newPosition);
+                    }
+                }
+            }
+        }
+        return allMoves;
+    }
+
     // the move for a given piece
     public List<Position> getAllMoves(ColorType currentColor, Position p) {
         //a list of all the possible moves
