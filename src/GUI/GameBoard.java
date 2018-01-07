@@ -77,8 +77,7 @@ public class GameBoard extends JPanel {
             }else{
                 // Selecting a piece
                 previousTile = tile;
-                possiblePositions = chessBoard.getAllMoves(tilePosition);
-                System.out.println(possiblePositions.size());
+                possiblePositions = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
                 for (Position position : possiblePositions){
                     positionToGameTile(position).selectTile();
                 }

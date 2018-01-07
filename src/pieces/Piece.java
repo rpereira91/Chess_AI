@@ -1,11 +1,15 @@
 package pieces;
 import helper.Position;
+import logic.ChessBoard;
+
+import java.util.List;
 
 public abstract class Piece {
 
     private PieceType pieceType; //the type of piece
     private ColorType pieceColorType; //is the piece black or white
     private int pieceCost; //the value or cost of the piece (used for the AI)
+    private ChessBoard board;
 
 
     public int getPieceCost() {
@@ -40,6 +44,16 @@ public abstract class Piece {
     public boolean firstMove(){
         return false;
     }
+
+    public ChessBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(ChessBoard board){
+        this.board = board;
+    }
+
+    public abstract List<Position> getMoves(Position current);
 
     public void setFirstMove(boolean firstMove){
     }

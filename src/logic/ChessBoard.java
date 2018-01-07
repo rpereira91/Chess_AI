@@ -31,27 +31,27 @@ public class ChessBoard {
     public void initilizeGameBoard(){
         createEmptyGameBoard();
         //set the black pieces
-        gameBoard[0][0].setPiece(new Rook(ColorType.BLACK));
-        gameBoard[7][0].setPiece(new Rook(ColorType.BLACK));
-        gameBoard[1][0].setPiece(new Knight(ColorType.BLACK));
-        gameBoard[6][0].setPiece(new Knight(ColorType.BLACK));
-        gameBoard[2][0].setPiece(new Bishop(ColorType.BLACK));
-        gameBoard[5][0].setPiece(new Bishop(ColorType.BLACK));
-        gameBoard[3][0].setPiece(new Queen(ColorType.BLACK));
-        gameBoard[4][0].setPiece(new King(ColorType.BLACK));
+        gameBoard[0][0].setPiece(new Rook(ColorType.BLACK, this));
+        gameBoard[7][0].setPiece(new Rook(ColorType.BLACK, this));
+        gameBoard[1][0].setPiece(new Knight(ColorType.BLACK, this));
+        gameBoard[6][0].setPiece(new Knight(ColorType.BLACK, this));
+        gameBoard[2][0].setPiece(new Bishop(ColorType.BLACK, this));
+        gameBoard[5][0].setPiece(new Bishop(ColorType.BLACK, this));
+        gameBoard[3][0].setPiece(new Queen(ColorType.BLACK, this));
+        gameBoard[4][0].setPiece(new King(ColorType.BLACK, this));
         //set up the white pieces
-        gameBoard[0][7].setPiece(new Rook(ColorType.WHITE));
-        gameBoard[7][7].setPiece(new Rook(ColorType.WHITE));
-        gameBoard[1][7].setPiece(new Knight(ColorType.WHITE));
-        gameBoard[6][7].setPiece(new Knight(ColorType.WHITE));
-        gameBoard[2][7].setPiece(new Bishop(ColorType.WHITE));
-        gameBoard[5][7].setPiece(new Bishop(ColorType.WHITE));
-        gameBoard[3][7].setPiece(new Queen(ColorType.WHITE));
-        gameBoard[4][7].setPiece(new King(ColorType.WHITE));
+        gameBoard[0][7].setPiece(new Rook(ColorType.WHITE, this));
+        gameBoard[7][7].setPiece(new Rook(ColorType.WHITE, this));
+        gameBoard[1][7].setPiece(new Knight(ColorType.WHITE, this));
+        gameBoard[6][7].setPiece(new Knight(ColorType.WHITE, this));
+        gameBoard[2][7].setPiece(new Bishop(ColorType.WHITE, this));
+        gameBoard[5][7].setPiece(new Bishop(ColorType.WHITE, this));
+        gameBoard[3][7].setPiece(new Queen(ColorType.WHITE, this));
+        gameBoard[4][7].setPiece(new King(ColorType.WHITE, this));
         //set the pawns for both colors
         for (int i = 0; i < 8; i++) {
-            gameBoard[i][1].setPiece(new Pawn(ColorType.BLACK));
-            gameBoard[i][6].setPiece(new Pawn(ColorType.WHITE));
+            gameBoard[i][1].setPiece(new Pawn(ColorType.BLACK, this));
+            gameBoard[i][6].setPiece(new Pawn(ColorType.WHITE, this));
 
         }
     }
@@ -80,6 +80,24 @@ public class ChessBoard {
     public ColorType getColorType(Position position){
         if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].getPiece().getPieceColorType();
+        }
+        return null;
+    }
+
+    public ColorType getColorType(int col, int row){
+        if (containsPiece(col, row)){
+            return gameBoard[col][row].getPiece().getPieceColorType();
+        }
+        return null;
+    }
+
+    public Tile getTile(int col, int row){
+        return gameBoard[col][row];
+    }
+
+    public Tile getTile(Position position){
+        if(containsPiece(position)){
+            return gameBoard[position.getCol()][position.getRow()];
         }
         return null;
     }
@@ -134,6 +152,11 @@ public class ChessBoard {
     public boolean containsPiece(Position position){
         return gameBoard[position.getCol()][position.getRow()].tileOccupied();
     }
+
+    public boolean containsPiece(int col, int row){
+        return gameBoard[col][row].tileOccupied();
+    }
+
     //if the tile is not occupied it can place down the piece, if it's occupied it doesn't place down the piece
     boolean setPiece(Position position, Piece piece){
         if(!containsPiece(position)){
@@ -151,15 +174,15 @@ public class ChessBoard {
         if(containsPiece(p)){
             ColorType colorType = gameBoard[p.getCol()][p.getRow()].takePiece().getPieceColorType();
             if(pieceType == PieceType.PAWN){
-                gameBoard[p.getCol()][p.getRow()].setPiece(new Pawn(colorType));
+                gameBoard[p.getCol()][p.getRow()].setPiece(new Pawn(colorType, this));
             }else if(pieceType == PieceType.BISHOP){
-                gameBoard[p.getCol()][p.getRow()].setPiece(new Bishop(colorType));
+                gameBoard[p.getCol()][p.getRow()].setPiece(new Bishop(colorType, this));
             }else if(pieceType == PieceType.KNIGHT){
-                gameBoard[p.getCol()][p.getRow()].setPiece(new Knight(colorType));
+                gameBoard[p.getCol()][p.getRow()].setPiece(new Knight(colorType, this));
             }else if(pieceType == PieceType.ROOK){
-                gameBoard[p.getCol()][p.getRow()].setPiece(new Rook(colorType));
+                gameBoard[p.getCol()][p.getRow()].setPiece(new Rook(colorType, this));
             }else if(pieceType == PieceType.QUEEN){
-                gameBoard[p.getCol()][p.getRow()].setPiece(new Queen(colorType));
+                gameBoard[p.getCol()][p.getRow()].setPiece(new Queen(colorType, this));
             }
         }
     }
@@ -407,6 +430,7 @@ public class ChessBoard {
             return true;
         return false;
     }
+
     public boolean kingPath(Position start, Position end){
         //if its the king's first move
         if (gameBoard[start.getCol()][start.getRow()].getPiece().firstMove()) {

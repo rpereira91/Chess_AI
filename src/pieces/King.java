@@ -1,20 +1,31 @@
 package pieces;
 
 import helper.Position;
+import logic.ChessBoard;
+
+import java.util.List;
 
 public class King extends Piece {
     private boolean firstMove;
-    public King(ColorType colorType){
+    public King(ColorType colorType, ChessBoard board){
         setPieceType(PieceType.KING);
         setPieceColorType(colorType);
         setFirstMove(true);
         setPieceCost(200);
+        setBoard(board);
     }
 
     @Override
     public boolean firstMove(){
         return firstMove;
     }
+
+    // TODO: Implement
+    @Override
+    public List<Position> getMoves(Position current) {
+        return null;
+    }
+
     @Override
     public void madeFirstMove(){
         firstMove = false;
