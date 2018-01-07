@@ -141,6 +141,8 @@ public class Player {
         boolean madeFirstMove;
         boolean pawnPromo = false;
 
+        int minVal;
+
         //if it's at the depth get the board evulation
         if (boardDepth == 0) {
             return evaluateBoard(chessBoard);
@@ -168,19 +170,19 @@ public class Player {
                 if (originalPiece != newPiece) pawnPromo = true;
                 numMove++;
                 //get the min value by calling the min function at a depth one lower than the current depth
-                int value = Min(chessBoard, alpha, beta, boardDepth - 1);
+                minVal = Min(chessBoard, alpha, beta, boardDepth - 1);
                 // if the min is greater than the beta undo the move and return the beta value
-                if (value >= beta) {
+                if (minVal >= beta) {
                     chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
                     numMove--;
                     return beta;
                 }
                 //the alpha value set if the min is greater than the alpha
-                if (value > alpha) {
+                if (minVal > alpha) {
                     if (boardDepth == depth) {
                         move = firstMove;
                     }
-                    alpha = value;
+                    alpha = minVal;
                 }
                 //undo the move made
                 chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
@@ -197,6 +199,8 @@ public class Player {
         PieceType newPiece;
         boolean madeFirstMove;
         boolean pawnPromo = false;
+
+        int maxVal;
         //if its the bottom of the depth tree get the board value
         if (boardDepth == 0) {
             return evaluateBoard(chessBoard);
@@ -221,17 +225,17 @@ public class Player {
                 if (originalPiece != newPiece) pawnPromo = true;
                 numMove++;
                 //get the max value by going down one more level in the depth
-                int value = Max(chessBoard, alpha, beta, boardDepth - 1);
-                if (value <= alpha) {
+                maxVal = Max(chessBoard, alpha, beta, boardDepth - 1);
+                if (maxVal <= alpha) {
                     chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo); // undo
                     numMove--;
                     return alpha;
                 }
-                if (value < beta) {
+                if (maxVal < beta) {
                     if (boardDepth == boardDepth) {
                         move = firstMove;
                     }
-                    beta = value;
+                    beta = maxVal;
                 }
                 chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove,pawnPromo); // undo
                 numMove--;

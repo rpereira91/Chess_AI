@@ -15,7 +15,7 @@ public class ChessBoard {
     private Tile[][] gameBoard;
     //the size of the game gameBoard, it's normally 8x8
     public final int SIZE = 8;
-    ChessBoard(){
+    public ChessBoard(){
         gameBoard = new Tile[SIZE][SIZE];
     }
     //creates an empty game gameBoard with no pieces on it
@@ -83,6 +83,46 @@ public class ChessBoard {
         }
         return null;
     }
+
+    public String getImage(Position position){
+        if(getPieceType(position) == PieceType.PAWN){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WP";
+            else
+                return "BP";
+        }
+        if(getPieceType(position) == PieceType.KNIGHT){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WN";
+            else
+                return "BN";
+        }
+        if(getPieceType(position) == PieceType.BISHOP){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WB";
+            else
+                return "BB";
+        }
+        if(getPieceType(position) == PieceType.ROOK){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WR";
+            else
+                return "BR";
+        }
+        if(getPieceType(position) == PieceType.KING){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WK";
+            else
+                return "BK";
+        }
+        if(getPieceType(position) == PieceType.QUEEN){
+            if(getColorType(position) == ColorType.WHITE)
+                return "WQ";
+            else
+                return "BQ";
+        }
+        return null;
+    }
     //takes the piece off the tile
     Piece removePiece(Position position){
         if(containsPiece(position)){
@@ -91,7 +131,7 @@ public class ChessBoard {
         return null;
     }
     //checks the passed Position value to see if it has a piece
-    boolean containsPiece(Position position){
+    public boolean containsPiece(Position position){
         return gameBoard[position.getCol()][position.getRow()].tileOccupied();
     }
     //if the tile is not occupied it can place down the piece, if it's occupied it doesn't place down the piece
@@ -103,7 +143,7 @@ public class ChessBoard {
         return false;
     }
     //move a piece from the start to the end, it takes the piece at the start position and moves it to ene end position
-    void movePiece(Position start, Position end){
+    public void movePiece(Position start, Position end){
         gameBoard[end.getCol()][end.getRow()].setPiece(gameBoard[start.getCol()][end.getRow()].takePiece());
     }
     //replaces the passed position with a new piece

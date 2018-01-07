@@ -41,7 +41,7 @@ public class Pawn extends Piece {
             }
             return false;
         }
-        //the black pieces move down so the loogic for row checking is reversed
+        //the black pieces move down so the logic for row checking is reversed
         if(getPieceColorType() == ColorType.BLACK){
             if(start.getCol() == end.getCol() && start.getRow() - end.getRow() == -1)
                 return  true;

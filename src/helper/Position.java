@@ -5,13 +5,25 @@ package helper;
 public class Position {
     private int row;
     private int col;
-    //default constructor
-    Position(){
-    }
+    private boolean color;
+
     //set the row and col for the Coordinate
     public Position(int col, int row){
         this.col = col;
         this.row = row;
+        //set the color for the position(used for the JTile in the GUI), if it's a white its false, if its a black square its true
+        if(row%2==0){
+            if(col%2==0)
+                color = false;
+            else
+                color = true;
+        }
+        if(row%2!=0){
+            if(col%2==0)
+                color = true;
+            else
+                color = false;
+        }
     }
 
     public int getRow() {
@@ -28,5 +40,8 @@ public class Position {
 
     public void setCol(int col) {
         this.col = col;
+    }
+    public boolean getColor(){
+        return color;
     }
 }
