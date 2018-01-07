@@ -302,9 +302,10 @@ public class ChessBoard {
     }
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
-        if(containsPiece(start))
+        if(containsPiece(start)) {
             if(gameBoard[start.getCol()][start.getRow()].getPiece().legalMove(start,end))
                 return true;
+        }
         return false;
     }
     //checks the path for each piece type
@@ -458,7 +459,7 @@ public class ChessBoard {
     }
 
     //this handles castling and pawn moving for the first time
-    Piece moveSpecialPiece ( Move move) {
+    public Piece moveSpecialPiece ( Move move) {
         //position variables to make it a bit easier when looking up moves
         Position moveStart = move.getStart();
         Position moveEnd = move.getEnd();
@@ -474,9 +475,7 @@ public class ChessBoard {
         }
         //if the pawn is moving for the first time and its moving twice set the first move to true so it can't move twice again
         if (startPiece.getPieceType() == PieceType.PAWN) {
-            if (startPiece.firstMove()) if (Math.abs(moveStart.getRow() - moveEnd.getRow()) == 2) {
-                startPiece.setFirstMove(true);
-            } else startPiece.setFirstMove(false);
+            startPiece.setFirstMove(false);
             //if the rook or king is moving for the first time set that piece to already moved, so it can't be used for castling
         } else if (startPiece.getPieceType() == PieceType.ROOK || startPiece.getPieceType() == PieceType.KING) {
             if (startPiece.firstMove()) startPiece.setFirstMove(false);
@@ -498,11 +497,11 @@ public class ChessBoard {
                         new Position(3, move.getEnd().getRow()));
             }
         }
-
+        System.out.println(startPiece.getPieceType().toString());
         return endPiece;
     }
     // undoes the passed move and any special moves
-    void undoSpecialMove ( Move move, Piece piece, boolean firstMove, boolean pawnPromote ) {
+    public void undoSpecialMove ( Move move, Piece piece, boolean firstMove, boolean pawnPromote ) {
         //reverse the move
         movePiece(move.getEnd(), move.getStart());
         //if there is a piece place the piece down at the destination of the move

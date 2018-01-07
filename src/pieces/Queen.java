@@ -12,7 +12,7 @@ public class Queen extends Piece {
     public boolean legalMove(Position start, Position end) {
         if(start.getRow() - end.getRow() == 0
                 || start.getCol() - end.getCol() == 0
-                || Math.abs(start.getCol() - end.getCol()) == Math.abs(start.getCol()-end.getCol()))
+                || Math.abs(start.getCol() - end.getCol()) == Math.abs(start.getRow()-end.getRow()))
             return true;
         return false;
     }

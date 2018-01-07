@@ -2,6 +2,7 @@ package GUI;
 
 import helper.Position;
 import logic.ChessBoard;
+import logic.Move;
 import pieces.ColorType;
 
 import javax.swing.*;
@@ -79,7 +80,7 @@ public class GameBoard extends JPanel {
             if (previousTile != null){
                 // If this click is legal, we move and reset previousTile.
                 if (chessBoard.isLegalMove(previousTile.position, tilePosition)){
-                    chessBoard.movePiece(previousTile.position, tilePosition);
+                    chessBoard.moveSpecialPiece(new Move(previousTile.position, tilePosition));
                 }
 
                 // Reset select state
