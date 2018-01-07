@@ -77,7 +77,7 @@ public class ChessBoard {
         return null;
     }
     //gets the color of the piece at the Position
-    ColorType getColorType(Position position){
+    public ColorType getColorType(Position position){
         if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].getPiece().getPieceColorType();
         }
@@ -144,7 +144,7 @@ public class ChessBoard {
     }
     //move a piece from the start to the end, it takes the piece at the start position and moves it to ene end position
     public void movePiece(Position start, Position end){
-        gameBoard[end.getCol()][end.getRow()].setPiece(gameBoard[start.getCol()][end.getRow()].takePiece());
+        gameBoard[end.getCol()][end.getRow()].setPiece(gameBoard[start.getCol()][start.getRow()].takePiece());
     }
     //replaces the passed position with a new piece
     void replacePiece(Position p, PieceType pieceType){
@@ -165,7 +165,7 @@ public class ChessBoard {
     }
 
     // the move for a given piece
-    List<Position> getAllMoves(ColorType currentColor, Position p) {
+    public List<Position> getAllMoves(ColorType currentColor, Position p) {
         //a list of all the possible moves
         List<Position> allMoves = new LinkedList<>();
         //if the current position has a piece and it's the same color as the passed color check the entire gameBoard
