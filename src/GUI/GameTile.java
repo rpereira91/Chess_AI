@@ -21,7 +21,7 @@ public class GameTile extends JPanel {
     }
 
     public void selectTile(){
-        setBackground(Color.ORANGE);
+        setBackground(position.getColor() ? new Color(203,154,19) : new Color(255,217,135));
     }
 
     public void updateTile(){
