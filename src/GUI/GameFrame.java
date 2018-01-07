@@ -10,6 +10,7 @@ public class GameFrame extends JFrame {
         super("Chess AI");
         setSize(dimension);
         createJMenuBar();
+        add(new GameBoard(), BorderLayout.CENTER);
         setVisible(true);
     }
 
