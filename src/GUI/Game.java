@@ -88,18 +88,18 @@ public class Game {
                 }
             }
             setPreferredSize(PANNEL_DIM);
-            validate();
+//            validate();
         }
         public void redrawJboard(ChessBoard chessBoard){
             //remove all the
-            removeAll();
-            //for each tile on the board
-            for(JTile tile: tiles){
-                tile.redrawJTile(chessBoard);
-                add(tile);
-            }
-            validate();
-            repaint();
+//            removeAll();
+//            //for each tile on the board
+//            for(JTile tile: tiles){
+//                tile.redrawJTile(chessBoard);
+//                add(tile);
+//            }
+//            validate();
+//            repaint();
         }
     }
     private class JTile extends JPanel{
@@ -126,7 +126,9 @@ public class Game {
                                 chessBoard.movePiece(startTile,endTile);
                             }
                         }
-                        SwingUtilities.invokeLater(() -> board.redrawJboard(chessBoard));
+                        gameBoard.redrawJboard(chessBoard);
+//                        board.redrawJboard(chessBoard);
+//                        SwingUtilities.invokeLater(() -> board.redrawJboard(chessBoard));
                     }
                 }
             });
