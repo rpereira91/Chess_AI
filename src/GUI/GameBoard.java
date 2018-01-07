@@ -150,4 +150,11 @@ public class GameBoard extends JPanel {
         }
         repaint();
     }
+
+    public boolean endGame(Position end){
+        if(chessBoard.getPieceType(end) == PieceType.KING){
+            return true;
+        }
+        return false;
+    }
 }
