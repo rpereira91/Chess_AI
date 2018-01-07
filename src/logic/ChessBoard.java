@@ -70,7 +70,7 @@ public class ChessBoard {
         return 0;
     }
     //gets the type of piece at the Position
-    PieceType getPieceType(Position position){
+    public PieceType getPieceType(Position position){
         if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].getPiece().getPieceType();
         }
@@ -142,7 +142,7 @@ public class ChessBoard {
         return null;
     }
     //takes the piece off the tile
-    Piece removePiece(Position position){
+    public Piece removePiece(Position position){
         if(containsPiece(position)){
             return gameBoard[position.getCol()][position.getRow()].takePiece();
         }
@@ -170,7 +170,7 @@ public class ChessBoard {
         gameBoard[end.getCol()][end.getRow()].setPiece(gameBoard[start.getCol()][start.getRow()].takePiece());
     }
     //replaces the passed position with a new piece
-    void replacePiece(Position p, PieceType pieceType){
+    public void replacePiece(Position p, PieceType pieceType){
         if(containsPiece(p)){
             ColorType colorType = gameBoard[p.getCol()][p.getRow()].takePiece().getPieceColorType();
             if(pieceType == PieceType.PAWN){
@@ -463,7 +463,7 @@ public class ChessBoard {
 
     }
     //universal check for path based on the piece type passed
-    boolean checkPiecePath(Position start, Position end, PieceType pieceType){
+    public boolean checkPiecePath(Position start, Position end, PieceType pieceType){
 
         if(pieceType == PieceType.PAWN){
             return pawnPath(start, end);
@@ -521,7 +521,6 @@ public class ChessBoard {
                         new Position(3, move.getEnd().getRow()));
             }
         }
-        System.out.println(startPiece.getPieceType().toString());
         return endPiece;
     }
     // undoes the passed move and any special moves

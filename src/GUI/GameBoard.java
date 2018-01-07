@@ -4,6 +4,7 @@ import helper.Position;
 import logic.ChessBoard;
 import logic.Move;
 import pieces.ColorType;
+import pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +61,16 @@ public class GameBoard extends JPanel {
                     previousTile = null;
                     return;
                 }else{
-                    // Logic for attacking
+                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position) && chessBoard.isLegalMove(previousTile.position, tilePosition)) {
+                        chessBoard.removePiece(tilePosition);
+                        drawBoard();
+                        movePieces(previousTile.position, tilePosition);
+                        resetSelectedTilesBackground();
+                        previousTile = null;
+                        drawBoard();
+                        return;
+                    }
+
                 }
 
             // We just clicked on a non empty tile and it's our first click
@@ -78,9 +88,7 @@ public class GameBoard extends JPanel {
             // We clicked on an empty tile and our last click was on a tile that has a piece
             if (previousTile != null){
                 // If this click is legal, we move and reset previousTile.
-                if (chessBoard.isLegalMove(previousTile.position, tilePosition)){
-                    chessBoard.moveSpecialPiece(new Move(previousTile.position, tilePosition));
-                }
+                movePieces(previousTile.position, tilePosition);
 
                 // Reset select state
                 resetSelectedTilesBackground();
@@ -89,14 +97,41 @@ public class GameBoard extends JPanel {
         }
         drawBoard();
     }
-
+    public void movePieces(Position start, Position end){
+        if (chessBoard.isLegalMove(start, end)) {
+            chessBoard.moveSpecialPiece(new Move(start, end));
+            if (end.getRow() == 0 || end.getRow() == 7) {
+                System.out.println(end.getRow());
+                System.out.println(chessBoard.getPieceType(end).toString());
+                if (chessBoard.getPieceType(end) == PieceType.PAWN) {
+                    pawnPromo(end);
+                }
+            }
+        }
+    }
     private void resetSelectedTilesBackground(){
         previousTile.resetBackground();
         for (Position position : possiblePositions){
             positionToGameTile(position).resetBackground();
         }
     }
+    //handles the pawn promotion
+    public void pawnPromo(Position tilePosition){
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        String[] pieces = {"Queen", "Rook","Bishop","Knight"};
+        String defaultPiece = "Queen";
+        String pieceSelected = (String) JOptionPane.showInputDialog(null, "What Piece do you want?", "Pawn Promote", JOptionPane.QUESTION_MESSAGE, null, pieces, defaultPiece);
+        System.out.println(pieceSelected);
+        if(pieceSelected == null || pieceSelected.equals("Queen"))
+            chessBoard.replacePiece(tilePosition, PieceType.QUEEN);
+        else if(pieceSelected.equals("Rook"))
+            chessBoard.replacePiece(tilePosition, PieceType.ROOK);
+        else if(pieceSelected.equals("Bishop"))
+            chessBoard.replacePiece(tilePosition, PieceType.BISHOP);
+        else if(pieceSelected.equals("Knight"))
+            chessBoard.replacePiece(tilePosition, PieceType.KNIGHT);
 
+    }
 
     public GameTile positionToGameTile(Position position){
         return tiles[position.getCol()][position.getRow()];
