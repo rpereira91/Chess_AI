@@ -12,6 +12,8 @@ public class MinMaxLogic {
     private ColorType AIColorType;
     List<Position> possibleMoves = null;
     Move nextMove;
+    int numMove;
+    int depth = 4;
     public MinMaxLogic(ColorType AIColorType) {
         this.AIColorType = AIColorType;
     }
@@ -22,8 +24,7 @@ public class MinMaxLogic {
     public Move getNextMove ( ChessBoard chessBoard, boolean playerInCheck ) {
 
         ChessBoard cloneBoard = copyBoard(chessBoard);
-        //Max(cloneBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
-        nextMove = getAllMoves(chessBoard).get(0);
+        Max(cloneBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
         return nextMove;
     }
     //creates a copy of the game board passed to it
@@ -94,18 +95,17 @@ public class MinMaxLogic {
         return value + (int)Math.round(mobility*((totalPieces/32) + 0.1));
     }
 
-    private List<Move> getAllMoves(ChessBoard chessBoard){
+    private List<Move> getAllMoves(ChessBoard chessBoard, ColorType colorType){
         //empty list that holds all the moves
         List<Move> playerMoves = new LinkedList<>();
         for (int i = 0 ; i < 8 ; i++) {
             for (int j = 0 ; j < 8 ; j++) {
                 //if that particular position has a piece that is the same color as the AI
-                if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) == AIColorType){
+                if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) == colorType){
                     Position tilePosition = new Position(i,j);
                     try {
                     possibleMoves = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
                     for (Position position : possibleMoves) {
-                        System.out.println(position.getCol() + " " + position.getRow());
                             playerMoves.add(new Move(tilePosition, position));
                         }
                     }
@@ -115,5 +115,115 @@ public class MinMaxLogic {
             }
         }
         return playerMoves;
+    }
+    private int Max ( ChessBoard chessBoard, int alpha, int beta, int boardDepth ) {
+
+        Piece piece;
+        PieceType originalPiece;
+        PieceType newPiece;
+        boolean madeFirstMove;
+        boolean pawnPromo = false;
+
+        int minVal;
+
+        //if it's at the depth get the board evulation
+        if (boardDepth == 0) {
+            return evaluateBoard(chessBoard);
+        }
+        //get the list of moves for the color of the current player
+        List<Move> moves;
+        if(AIColorType == ColorType.WHITE) moves = getAllMoves(chessBoard, ColorType.WHITE);
+        else moves = getAllMoves(chessBoard, ColorType.BLACK);
+
+        //if there are moves that can be made for the player
+        if (moves != null) {
+            //while there are still moves that the player can make
+            while(moves.size() > 0) {
+                // get the first move from the move list
+                Move firstMove = moves.remove(0);
+                //check if the first move is being made
+                madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
+                //get the starting piece
+                originalPiece = chessBoard.getPieceType(firstMove.getStart());
+                // make move
+                piece = chessBoard.moveSpecialPiece(firstMove);
+                //get the ending piece
+                newPiece = chessBoard.getPieceType(firstMove.getEnd());
+                //check to see if the piece has been promoted
+                if (originalPiece != newPiece) pawnPromo = true;
+                numMove++;
+                //get the min value by calling the min function at a depth one lower than the current depth
+                minVal = Min(chessBoard, alpha, beta, boardDepth - 1);
+                // if the min is greater than the beta undo the move and return the beta value
+                if (minVal >= beta) {
+                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
+                    numMove--;
+                    return beta;
+                }
+                //the alpha value set if the min is greater than the alpha
+                if (minVal > alpha) {
+                    if (boardDepth == depth) {
+                        nextMove = firstMove;
+                    }
+                    alpha = minVal;
+                }
+                //undo the move made
+                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
+                numMove--;
+            }
+        }
+        return alpha;
+    }
+
+    private int Min( ChessBoard chessBoard, int alpha, int beta, int boardDepth ) {
+
+        Piece piece;
+        PieceType originalPiece;
+        PieceType newPiece;
+        boolean madeFirstMove;
+        boolean pawnPromo = false;
+
+        int maxVal;
+        //if its the bottom of the depth tree get the board value
+        if (boardDepth == 0) {
+            return evaluateBoard(chessBoard);
+        }
+        List<Move> moves;
+        //get the list of moves for the opposite player
+        if(AIColorType == ColorType.WHITE) moves = getAllMoves(chessBoard, ColorType.BLACK);
+        else moves = getAllMoves(chessBoard, ColorType.WHITE);
+        //if there are still moves that can be made
+        if (moves != null) {
+            while(moves.size() > 0) {
+                //get the first move
+                Move firstMove = moves.remove(0);
+                //check to see if its the first move
+                madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
+                //set the starting piece
+                originalPiece = chessBoard.getPieceType(firstMove.getStart());
+                //make the first move in the move list
+                piece = chessBoard.moveSpecialPiece(firstMove);
+                newPiece = chessBoard.getPieceType(firstMove.getEnd());
+                //check to see if the pawn has been promoted
+                if (originalPiece != newPiece) pawnPromo = true;
+                numMove++;
+                //get the max value by going down one more level in the depth
+                maxVal = Max(chessBoard, alpha, beta, boardDepth - 1);
+                if (maxVal <= alpha) {
+                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo); // undo
+                    numMove--;
+                    return alpha;
+                }
+                if (maxVal < beta) {
+                    if (boardDepth == boardDepth) {
+                        nextMove = firstMove;
+                    }
+                    beta = maxVal;
+                }
+                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove,pawnPromo); // undo
+                numMove--;
+            }
+        }
+        return beta;
     }
 }
