@@ -4,7 +4,6 @@ import helper.Position;
 import logic.ChessBoard;
 import logic.MinMaxLogic;
 import logic.Move;
-import logic.Player;
 import pieces.ColorType;
 import pieces.PieceType;
 
@@ -23,6 +22,7 @@ public class GameBoard extends JPanel {
     GameTile previousTile;
     List<Position> possiblePositions;
     MinMaxLogic computer;
+    ColorType humanColor;
 
     public GameBoard() {
         setLayout(new GridLayout(size, size));
@@ -31,6 +31,7 @@ public class GameBoard extends JPanel {
         chessBoard = new ChessBoard();
         chessBoard.initilizeGameBoard();
         computer = new MinMaxLogic(ColorType.BLACK);
+        humanColor = ColorType.WHITE;
         initTiles();
         setVisible(true);
 
@@ -38,6 +39,8 @@ public class GameBoard extends JPanel {
     private void playGame(){
         if(!playerTurn){
             Move move = computer.getNextMove(chessBoard,false);
+            chessBoard.removePiece(move.getEnd());
+            drawBoard();
             chessBoard.moveSpecialPiece(move);
             drawBoard();
             playerTurn = true;
@@ -63,7 +66,7 @@ public class GameBoard extends JPanel {
 
     public void tileClickHandler(GameTile tile){
         Position tilePosition = tile.position;
-        if (chessBoard.containsPiece(tilePosition)){
+        if (chessBoard.containsPiece(tilePosition) && chessBoard.getColorType(tilePosition) == humanColor){
             // We just clicked on a non empty tile and last click was on a non empty tile
             if (previousTile != null){
                 // Clicked on the same tile, deselect it
@@ -72,7 +75,8 @@ public class GameBoard extends JPanel {
                     previousTile = null;
                     return;
                 }else{
-                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position) && chessBoard.isLegalMove(previousTile.position, tilePosition)) {
+                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position) &&
+                            chessBoard.isLegalMove(previousTile.position, tilePosition)) {
                         chessBoard.removePiece(tilePosition);
                         drawBoard();
                         movePieces(previousTile.position, tilePosition);
@@ -100,13 +104,13 @@ public class GameBoard extends JPanel {
             if (previousTile != null){
                 // If this click is legal, we move and reset previousTile.
                 movePieces(previousTile.position, tilePosition);
-
                 // Reset select state
                 resetSelectedTilesBackground();
                 previousTile = null;
             }
         }
         drawBoard();
+        playGame();
     }
     public void movePieces(Position start, Position end){
         if (chessBoard.isLegalMove(start, end)) {
@@ -118,7 +122,6 @@ public class GameBoard extends JPanel {
             }
         }
         playerTurn = false;
-        playGame();
     }
     private void resetSelectedTilesBackground(){
         previousTile.resetBackground();

@@ -187,46 +187,9 @@ public class ChessBoard {
         }
     }
 
-    public List<Position> getAllMoves(Position position){
-        List<Position> allMoves = new LinkedList<>();
-        if (containsPiece(position)){
-            for (int i=0; i < 8; i++){
-                for (int j=0; j < 8; j++){
-                    Position newPosition = new Position(i, j);
-                    if (isLegalMove(position, newPosition)){
-                        allMoves.add(newPosition);
-                    }
-                }
-            }
-        }
-        return allMoves;
-    }
 
-    // the move for a given piece
-    public List<Position> getAllMoves(ColorType currentColor, Position p) {
-        //a list of all the possible moves
-        List<Position> allMoves = new LinkedList<>();
-        //if the current position has a piece and it's the same color as the passed color check the entire gameBoard
-        if (containsPiece(p) && currentColor == getColorType(p)) {
-            for (int i = 0 ; i < 8 ; i++) {
-                for (int j = 0 ; j < 8 ; j++) {
-                    /*
-                    if it's a leal move for the piece on the tile, and if that piece is able to move freely alon that path
-                    and if the tile doesn't have a piece that's not the same color as the current piece
-                    check if that move leaves the King open to attack, if not, add that move to the list
-                    */
-                    if (isLegalMove(p, new Position(i, j)) &&
-                            checkPiecePath(p, new Position(i, j), getPieceType(p)) &&
-                            (!containsPiece(new Position(i, j)) || getColorType(new Position(i, j)) != currentColor)) {
-                        if (!allPiecesToKing(p, new Position(i, j))) {
-                            allMoves.add(new Position(i, j));
-                        }
-                    }
-                }
-            }
-        }
-        return allMoves;
-    }
+
+
     //if the passed move was made, will the king be open to attack
     boolean allPiecesToKing ( Position start, Position end ) {
 

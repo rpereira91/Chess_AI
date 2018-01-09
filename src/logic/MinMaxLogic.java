@@ -79,13 +79,14 @@ public class MinMaxLogic {
                 the mobility is calculated by getting all the moves available for the current player
                 as the game progresses the mobility will be worth more */
                 if(chessBoard.containsPiece(new Position(i, j))) {
+                    Position tempPosition = new Position(i,j);
                     totalPieces++;
-                    if (chessBoard.getColorType(new Position(i, j)) == AIColorType) {
-                        value += chessBoard.getPieceCost(new Position(i, j));
-                        mobility += chessBoard.getAllMoves(AIColorType, new Position(i, j)).toArray().length;
+                    if (chessBoard.getColorType(tempPosition) == AIColorType) {
+                        value += chessBoard.getPieceCost(tempPosition);
+                        mobility += getAllPieceMoves(chessBoard,tempPosition).toArray().length;
                     } else {
                         value -= chessBoard.getPieceCost(new Position(i, j));
-                        mobility -= chessBoard.getAllMoves(AIColorType, new Position(i, j)).toArray().length;
+                        mobility -= getAllPieceMoves(chessBoard,tempPosition).toArray().length;
                     }
                 }
             }
@@ -94,7 +95,19 @@ public class MinMaxLogic {
         by the original number of pieces, making the mobility more important as the game progresses */
         return value + (int)Math.round(mobility*((totalPieces/32) + 0.1));
     }
-
+    private List<Move> getAllPieceMoves(ChessBoard chessBoard, Position position){
+        List<Move> pieceMoves = new LinkedList<>();
+        try {
+            possibleMoves = chessBoard.getTile(position).getPiece().getMoves(position);
+            for (Position p : possibleMoves) {
+                System.out.println("Possible move");
+                pieceMoves.add(new Move(position, p));
+            }
+        }
+        catch(NullPointerException exception) {
+        }
+        return pieceMoves;
+    }
     private List<Move> getAllMoves(ChessBoard chessBoard, ColorType colorType){
         //empty list that holds all the moves
         List<Move> playerMoves = new LinkedList<>();
