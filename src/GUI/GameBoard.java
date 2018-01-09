@@ -2,7 +2,9 @@ package GUI;
 
 import helper.Position;
 import logic.ChessBoard;
+import logic.MinMaxLogic;
 import logic.Move;
+import logic.Player;
 import pieces.ColorType;
 import pieces.PieceType;
 
@@ -17,9 +19,10 @@ public class GameBoard extends JPanel {
     Dimension dimension = new Dimension(400, 350);
     ChessBoard chessBoard;
     GameTile[][] tiles;
-
+    boolean playerTurn = true;
     GameTile previousTile;
     List<Position> possiblePositions;
+    MinMaxLogic computer;
 
     public GameBoard() {
         setLayout(new GridLayout(size, size));
@@ -27,11 +30,19 @@ public class GameBoard extends JPanel {
         tiles = new GameTile[size][size];
         chessBoard = new ChessBoard();
         chessBoard.initilizeGameBoard();
+        computer = new MinMaxLogic(ColorType.BLACK);
         initTiles();
-
         setVisible(true);
-    }
 
+    }
+    private void playGame(){
+        if(!playerTurn){
+            Move move = computer.getNextMove(chessBoard,false);
+            chessBoard.moveSpecialPiece(move);
+            drawBoard();
+            playerTurn = true;
+        }
+    }
     private void initTiles(){
         for (int i=0; i < tiles.length; i++){
             for (int j=0; j < tiles[i].length; j++){
@@ -101,13 +112,13 @@ public class GameBoard extends JPanel {
         if (chessBoard.isLegalMove(start, end)) {
             chessBoard.moveSpecialPiece(new Move(start, end));
             if (end.getRow() == 0 || end.getRow() == 7) {
-                System.out.println(end.getRow());
-                System.out.println(chessBoard.getPieceType(end).toString());
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
                     pawnPromo(end);
                 }
             }
         }
+        playerTurn = false;
+        playGame();
     }
     private void resetSelectedTilesBackground(){
         previousTile.resetBackground();

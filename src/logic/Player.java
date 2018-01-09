@@ -15,7 +15,7 @@ public class Player {
     private int depth = 4;
     public Move move;
 
-    Player (ColorType colorType){
+    public Player (ColorType colorType){
         this.colorType = colorType;
         playerType = PlayerType.COMPUTER;
     }
@@ -40,8 +40,13 @@ public class Player {
             for (int j = 0 ; j < 8 ; j++) {
                 //if the current position has a piece that has the same color as the player passed to it
                 //add all the moves to the list
-                if (b.containsPiece(new Position(i, j)) && b.getColorType(new Position(i, j)) == colour)
-                    playerMoves.addAll(mergeLists(new Position(i, j), b.getAllMoves(colour, new Position(i, j))));
+                if (b.containsPiece(new Position(i, j)) && b.getColorType(new Position(i, j)) == colour) {
+                   // List<Position> pieceMoves = b.getTile(new Position(i, j)).getPiece().getMoves(new Position(i,j));
+                    System.out.println(b.getTile(new Position(i, j)).getPiece().getMoves(new Position(i,j)).get(0));
+//                    for (Position position : pieceMoves){
+//                        playerMoves.add(new Move(new Position(i,j),position));
+//                    }
+                }
             }
         }
         return playerMoves;
