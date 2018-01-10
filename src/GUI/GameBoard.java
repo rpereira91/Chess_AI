@@ -48,7 +48,10 @@ public class GameBoard extends JPanel {
 //                chessBoard.removePiece(move.getEnd());
 //            drawBoard();
             System.out.println(move.toString());
-            chessBoard.movePiece(move.getStart(),move.getEnd());
+            if(chessBoard.containsPiece(move.getEnd()))
+                attackMove(move.getStart(),move.getEnd());
+            else
+                movePieces(move.getStart(),move.getEnd());
             drawBoard();
             playerTurn = true;
         }
@@ -121,7 +124,10 @@ public class GameBoard extends JPanel {
             chessBoard.moveSpecialPiece(new Move(start, end));
             if (end.getRow() == 0 || end.getRow() == 7) {
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
-                    pawnPromo(end);
+                    if(playerTurn)
+                        pawnPromo(end);
+                    else
+                        chessBoard.replacePiece(end, PieceType.QUEEN);
                 }
             }
         }
