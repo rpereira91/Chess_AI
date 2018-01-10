@@ -6,13 +6,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
 import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 
-public class StartUpFrame extends JFrame implements ItemListener {
+public class StartUpFrame extends JFrame implements ItemListener,ActionListener {
     JComboBox plyDepthsList;
     int plyDepth;
+    JRadioButton PVP;
+    JRadioButton PVAI;
+
     public StartUpFrame(){
         super("Chess Start Up");
         setSize(400,200);
@@ -22,8 +27,9 @@ public class StartUpFrame extends JFrame implements ItemListener {
         JLabel gameModeLabel = new JLabel("Select the game mode: ");
         JPanel gameModeRadioButtons = new JPanel(new FlowLayout());
         ButtonGroup gameButtons = new ButtonGroup();
-        JRadioButton PVP = new JRadioButton("PVP");
-        JRadioButton PVAI = new JRadioButton("PVAI");
+
+        PVP = new JRadioButton("PVP");
+        PVAI = new JRadioButton("PVAI");
         gameButtons.add(PVP);
         gameButtons.add(PVAI);
         gameModeRadioButtons.add(PVP);
@@ -44,6 +50,7 @@ public class StartUpFrame extends JFrame implements ItemListener {
         //Submit Button Component
         JPanel buttonPanel = new JPanel();
         JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(this);
         buttonPanel.add(submitButton);
         add(buttonPanel, BorderLayout.SOUTH);
         pack();
@@ -58,4 +65,12 @@ public class StartUpFrame extends JFrame implements ItemListener {
         System.out.println(plyDepth);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(PVP.isSelected())
+            System.out.println("PVP");
+        else
+            System.out.println("PVAI");
+        System.out.println(plyDepthsList.getSelectedIndex() + 1);
+    }
 }
