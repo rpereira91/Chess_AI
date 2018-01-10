@@ -5,16 +5,21 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
+import javax.swing.JComboBox;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-public class StartUpFrame extends JFrame {
 
+public class StartUpFrame extends JFrame implements ItemListener {
+    JComboBox plyDepthsList;
+    int plyDepth;
     public StartUpFrame(){
         super("Chess Start Up");
         setSize(400,200);
         JPanel gameModePanel = new JPanel();
-
+        String[] list = {"1","2","3","4","5","6"};
         //"Select Game Mode" Component
-        JLabel gameModeLabel = new JLabel("Select the game mode");
+        JLabel gameModeLabel = new JLabel("Select the game mode: ");
         JPanel gameModeRadioButtons = new JPanel(new FlowLayout());
         ButtonGroup gameButtons = new ButtonGroup();
         JRadioButton PVP = new JRadioButton("PVP");
@@ -29,10 +34,11 @@ public class StartUpFrame extends JFrame {
 
         //"Ply Depth Selection" Component
         JPanel plyDepthPanel = new JPanel();
-        JLabel plyLabel = new JLabel("Select Ply Depth");
-        JTextField plyDepth = new JTextField(5);
+        JLabel plyLabel = new JLabel("Select Ply Depth: ");
+        plyDepthsList = new JComboBox(list);
+        plyDepthsList.setBounds(100,50,100,20);
         plyDepthPanel.add(plyLabel);
-        plyDepthPanel.add(plyDepth);
+        plyDepthPanel.add(plyDepthsList);
         add(plyDepthPanel,BorderLayout.CENTER);
 
         //Submit Button Component
@@ -41,9 +47,15 @@ public class StartUpFrame extends JFrame {
         buttonPanel.add(submitButton);
         add(buttonPanel, BorderLayout.SOUTH);
         pack();
-
         setVisible(true);
+    }
 
+    //How does this work rip cry
+    //TO DO: Delete
+    //http://roughrecord.blogspot.ca/2012/04/create-combobox-using-jframe.html
+    public void itemStateChanged(ItemEvent e){
+        plyDepth = Integer.parseInt(plyDepthsList.getSelectedItem().toString());
+        System.out.println(plyDepth);
     }
 
 }
