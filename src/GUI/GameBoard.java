@@ -44,13 +44,14 @@ public class GameBoard extends JPanel {
     private void playGame(){
         if(!playerTurn){
             Move move = computer.getNextMove(chessBoard);
-            if(chessBoard.containsPiece(move.getEnd()))
-                attackMove(move.getStart(),move.getEnd());
-            else
-                movePieces(move.getStart(),move.getEnd());
-            drawBoard();
+            movePieces(move.getStart(),move.getEnd());
+//            if(chessBoard.containsPiece(move.getEnd()))
+//                attackMove(move.getStart(),move.getEnd());
+//            else
+//                movePieces(move.getStart(),move.getEnd());
             playerTurn = true;
         }
+        drawBoard();
     }
     private void initTiles(){
         for (int i=0; i < tiles.length; i++){
@@ -83,7 +84,7 @@ public class GameBoard extends JPanel {
                 }else{
                     if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position) &&
                             chessBoard.isLegalMove(previousTile.position, tilePosition)) {
-                        attackMove(previousTile.position, tilePosition);
+                        movePieces(previousTile.position,tilePosition);
                         playerTurn = false;
                         return;
                     }
@@ -112,12 +113,12 @@ public class GameBoard extends JPanel {
                 previousTile = null;
             }
         }
-        drawBoard();
         playGame();
     }
     public void movePieces(Position start, Position end){
         if (chessBoard.isLegalMove(start, end)) {
             chessBoard.moveSpecialPiece(new Move(start, end));
+            drawBoard();
             if (end.getRow() == 0 || end.getRow() == 7) {
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
                     if(playerTurn)
@@ -128,14 +129,7 @@ public class GameBoard extends JPanel {
             }
         }
     }
-    public void attackMove(Position start, Position end){
-        chessBoard.removePiece(end);
-        drawBoard();
-        movePieces(start, end);
-        resetSelectedTilesBackground();
-        previousTile = null;
-        drawBoard();
-    }
+
     private void resetSelectedTilesBackground(){
         previousTile.resetBackground();
         for (Position position : possiblePositions){

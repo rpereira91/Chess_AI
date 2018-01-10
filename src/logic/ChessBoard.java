@@ -197,26 +197,7 @@ public class ChessBoard {
 
 
 
-    public boolean colorCanAttackKing(ColorType colorType, Position kingPosition) {
-        //run through the entire gameBoard
-        List<Position> allMoves;
-        Position tempPosition;
-        for (int i = 0 ; i < 8 ; i++) {
-            for (int j = 0 ; j < 8 ; j++) {
-                if(containsPiece(i,j) && getColorType(i,j) != colorType){
-                    tempPosition = new Position(i,j);
-                    allMoves = getPiece(tempPosition).getMoves(tempPosition);
-                    for (Position pos: allMoves){
-                        if(pos.equals(kingPosition)){
-                            System.out.println("Yo");
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
+
 
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
