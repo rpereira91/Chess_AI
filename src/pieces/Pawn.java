@@ -25,7 +25,6 @@ public class Pawn extends Piece {
     @Override
     public List<Position> getMoves(Position current) {
         List<Position> moves = new LinkedList<>();
-        moves.add(current);
         ChessBoard board = getBoard();
         int forward = getPieceColorType() == ColorType.BLACK ? 1 : -1;
 

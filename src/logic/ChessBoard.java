@@ -283,7 +283,7 @@ public class ChessBoard {
         return endPiece;
     }
     // undoes the passed move and any special moves
-    public void undoSpecialMove ( Move move, Piece piece, boolean firstMove, boolean pawnPromote ) {
+    public void undoSpecialMove ( Move move, Piece piece, boolean firstMove) {
         //reverse the move
         movePiece(move.getEnd(), move.getStart());
         //if there is a piece place the piece down at the destination of the move
@@ -311,10 +311,6 @@ public class ChessBoard {
             }
         }
 
-        // replace pawn if promotion has happened
-        if (pawnPromote) {
-            replacePiece(move.getStart(), PieceType.PAWN);
-        }
     }
 
 }

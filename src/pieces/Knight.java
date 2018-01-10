@@ -37,13 +37,12 @@ public class Knight extends Piece {
     @Override
     public List<Position> getMoves(Position current) {
         List<Position> moves = new LinkedList<>();
-        moves.add(current);
         ChessBoard board = getBoard();
         for (int i=0; i < directions.length; i++){
             int[] direction = directions[i];
             int col = current.getCol() + direction[0];
             int row = current.getRow() + direction[1];
-            if (Position.isValid(col, row)){
+            if (Position.isValid(col, row) ){
                 if (board.containsPiece(col, row)){
                     if (board.getColorType(col, row) != getPieceColorType()){
                         moves.add(new Position(col, row));

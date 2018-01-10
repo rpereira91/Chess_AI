@@ -48,7 +48,6 @@ public class Rook extends Piece {
     @Override
     public List<Position> getMoves(Position current){
         List<Position> moves = new LinkedList<>();
-        moves.add(current);
         ChessBoard board = getBoard();
 
         for (int i=0; i < directions.length; i++){

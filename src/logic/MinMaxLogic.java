@@ -25,7 +25,7 @@ public class MinMaxLogic {
     public Move getNextMove ( ChessBoard chessBoard) {
 
         ChessBoard cloneBoard = copyBoard(chessBoard);
-        Min(cloneBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
+        Max(cloneBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
         return nextMove;
     }
     //creates a copy of the game board passed to it
@@ -135,7 +135,6 @@ public class MinMaxLogic {
         PieceType originalPiece;
         PieceType newPiece;
         boolean madeFirstMove;
-        boolean pawnPromo = false;
 
         int minVal;
 
@@ -156,19 +155,13 @@ public class MinMaxLogic {
                 Move firstMove = moves.remove(0);
                 //check if the first move is being made
                 madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
-                //get the starting piece
-                originalPiece = chessBoard.getPieceType(firstMove.getStart());
                 // make move
                 piece = chessBoard.moveSpecialPiece(firstMove);
-                //get the ending piece
-                newPiece = chessBoard.getPieceType(firstMove.getEnd());
-                //check to see if the piece has been promoted
-                if (originalPiece != newPiece) pawnPromo = true;
                 //get the min value by calling the min function at a depth one lower than the current depth
                 minVal = Min(chessBoard, alpha, beta, boardDepth - 1);
                 // if the min is greater than the beta undo the move and return the beta value
                 if (minVal >= beta) {
-                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
+                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove);
                     return beta;
                 }
                 //the alpha value set if the min is greater than the alpha
@@ -179,7 +172,7 @@ public class MinMaxLogic {
                     alpha = minVal;
                 }
                 //undo the move made
-                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo);
+                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove);
             }
         }
         return alpha;
@@ -191,7 +184,6 @@ public class MinMaxLogic {
         PieceType originalPiece;
         PieceType newPiece;
         boolean madeFirstMove;
-        boolean pawnPromo = false;
 
         int maxVal;
         //if its the bottom of the depth tree get the board value
@@ -209,26 +201,21 @@ public class MinMaxLogic {
                 Move firstMove = moves.remove(0);
                 //check to see if its the first move
                 madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
-                //set the starting piece
-                originalPiece = chessBoard.getPieceType(firstMove.getStart());
                 //make the first move in the move list
                 piece = chessBoard.moveSpecialPiece(firstMove);
-                newPiece = chessBoard.getPieceType(firstMove.getEnd());
-                //check to see if the pawn has been promoted
-                if (originalPiece != newPiece) pawnPromo = true;
                 //get the max value by going down one more level in the depth
                 maxVal = Max(chessBoard, alpha, beta, boardDepth - 1);
                 if (maxVal <= alpha) {
-                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove, pawnPromo); // undo
+                    chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove); // undo
                     return alpha;
                 }
                 if (maxVal < beta) {
-                    if (boardDepth == boardDepth) {
+                    if (boardDepth == depth) {
                         nextMove = firstMove;
                     }
                     beta = maxVal;
                 }
-                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove,pawnPromo); // undo
+                chessBoard.undoSpecialMove(firstMove, piece, madeFirstMove); // undo
             }
         }
         return beta;
