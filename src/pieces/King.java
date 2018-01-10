@@ -3,10 +3,22 @@ package pieces;
 import helper.Position;
 import logic.ChessBoard;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class King extends Piece {
     private boolean firstMove;
+    private int[][] directions = {
+            {-1, -1},
+            {1, 1},
+            {1, -1},
+            {-1, 1},
+            {-1, 0},
+            {1, 0},
+            {0, -1},
+            {0, 1}
+    };
+
     public King(ColorType colorType, ChessBoard board){
         setPieceType(PieceType.KING);
         setPieceColorType(colorType);
@@ -23,7 +35,28 @@ public class King extends Piece {
     // TODO: Implement
     @Override
     public List<Position> getMoves(Position current) {
-        return null;
+        List<Position> moves = new LinkedList<>();
+        ChessBoard board = getBoard();
+
+        for (int i=0; i < directions.length; i++){
+            int[] direction = directions[i];
+                int col = current.getCol() + direction[0];
+                int row = current.getRow() + direction[1];
+
+                if (Position.isValid(col, row)) {
+                    if (!board.containsPiece(col, row)) {
+                        moves.add(new Position(col, row));
+                    } else {
+                        if (board.getColorType(col, row) != getPieceColorType()) {
+                            moves.add(new Position(col, row));
+                        }
+                        break;
+                    }
+                }else{
+                    break;
+                }
+        }
+        return moves;
     }
 
     @Override

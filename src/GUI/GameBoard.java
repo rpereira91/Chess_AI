@@ -76,7 +76,7 @@ public class GameBoard extends JPanel {
 
     public void tileClickHandler(GameTile tile){
         Position tilePosition = tile.position;
-        if (chessBoard.containsPiece(tilePosition) && chessBoard.getColorType(tilePosition) == humanColor){
+        if (chessBoard.containsPiece(tilePosition) && chessBoard.getColorType(tilePosition) != computer.getAIColorType()){
             // We just clicked on a non empty tile and last click was on a non empty tile
             if (previousTile != null){
                 // Clicked on the same tile, deselect it
