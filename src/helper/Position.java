@@ -48,4 +48,10 @@ public class Position {
     public static boolean isValid(int col, int row){
         return col >= 0 && col < 8 && row >= 0 && row < 8;
     }
+
+    public boolean equals(Position po){
+        if(this.getCol() == po.getCol() && this.getRow() == po.getRow())
+            return true;
+        return false;
+    }
 }

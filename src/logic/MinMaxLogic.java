@@ -153,6 +153,9 @@ public class MinMaxLogic {
             while(moves.size() > 0) {
                 // get the first move from the move list
                 Move firstMove = moves.remove(0);
+                if(firstMove.getStart().equals(firstMove.getEnd())){
+                    continue;
+                }
                 //check if the first move is being made
                 madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
                 // make move
@@ -199,6 +202,9 @@ public class MinMaxLogic {
             while(moves.size() > 0) {
                 //get the first move
                 Move firstMove = moves.remove(0);
+                if(firstMove.getStart().equals(firstMove.getEnd())){
+                    continue;
+                }
                 //check to see if its the first move
                 madeFirstMove = chessBoard.checkFirstMove(firstMove.getStart());
                 //make the first move in the move list

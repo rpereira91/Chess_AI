@@ -37,13 +37,14 @@ public class King extends Piece {
     public List<Position> getMoves(Position current) {
         List<Position> moves = new LinkedList<>();
         ChessBoard board = getBoard();
+        moves.add(current);
 
         for (int i=0; i < directions.length; i++){
             int[] direction = directions[i];
                 int col = current.getCol() + direction[0];
                 int row = current.getRow() + direction[1];
-            System.out.println(col + " + " + row);
                 if (Position.isValid(col, row)) {
+                    //board.colorCanAttackKing(getPieceColorType(),new Position(row, col));
                     if (!board.containsPiece(col, row)) {
                         moves.add(new Position(col, row));
                     } else {

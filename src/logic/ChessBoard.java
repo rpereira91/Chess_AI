@@ -7,6 +7,7 @@ package logic;
 import helper.Position;
 import pieces.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -196,42 +197,27 @@ public class ChessBoard {
 
 
 
-//    //if the passed move was made, will the king be open to attack
-//
-//    //returns true if any of the passed through color type can attack the king
-//    boolean colorCanAttackKing(ColorType colorType ) {
-//        //run through the entire gameBoard
-//        for (int i = 0 ; i < 8 ; i++) {
-//            for (int j = 0 ; j < 8 ; j++) {
-//                //if that position has a piece that is the same color as the passed by value
-//                if (containsPiece(new Position(i, j)) && getColorType(new Position(i, j)) == colorType) {
-//                    if (positionCanAttackKing(new Position(i, j))) {
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//    // true if the passed position can can attack the king
-//    boolean positionCanAttackKing ( Position position ) {
-//
-//        for (int i = 0 ; i < 8 ; i++) {
-//            for (int j = 0 ; j < 8 ; j++) {
-//                //if the current location has a piece that is a king of the opposite color as the piece passed to it
-//                if (containsPiece(new Position(i, j)) &&
-//                        getPieceType(new Position(i, j)) == PieceType.KING &&
-//                        getColorType(new Position(i, j)) != getColorType(position)) {
-//                    //if the move from the passed position to the new one is legal that position can attack the king
-//                    if (isLegalMove(position, new Position(i, j)) &&
-//                            checkPiecePath(position, new Position(i, j), getPieceType(position))) {
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public boolean colorCanAttackKing(ColorType colorType, Position kingPosition) {
+        //run through the entire gameBoard
+        List<Position> allMoves;
+        Position tempPosition;
+        for (int i = 0 ; i < 8 ; i++) {
+            for (int j = 0 ; j < 8 ; j++) {
+                if(containsPiece(i,j) && getColorType(i,j) != colorType){
+                    tempPosition = new Position(i,j);
+                    allMoves = getPiece(tempPosition).getMoves(tempPosition);
+                    for (Position pos: allMoves){
+                        if(pos.equals(kingPosition)){
+                            System.out.println("Yo");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
         if(containsPiece(start)) {

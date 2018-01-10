@@ -44,10 +44,6 @@ public class GameBoard extends JPanel {
     private void playGame(){
         if(!playerTurn){
             Move move = computer.getNextMove(chessBoard);
-//            if(chessBoard.containsPiece(move.getEnd()))
-//                chessBoard.removePiece(move.getEnd());
-//            drawBoard();
-            System.out.println(move.toString());
             if(chessBoard.containsPiece(move.getEnd()))
                 attackMove(move.getStart(),move.getEnd());
             else
