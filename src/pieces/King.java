@@ -42,7 +42,7 @@ public class King extends Piece {
             int[] direction = directions[i];
                 int col = current.getCol() + direction[0];
                 int row = current.getRow() + direction[1];
-
+            System.out.println(col + " + " + row);
                 if (Position.isValid(col, row)) {
                     if (!board.containsPiece(col, row)) {
                         moves.add(new Position(col, row));
@@ -50,10 +50,7 @@ public class King extends Piece {
                         if (board.getColorType(col, row) != getPieceColorType()) {
                             moves.add(new Position(col, row));
                         }
-                        break;
                     }
-                }else{
-                    break;
                 }
         }
         return moves;
