@@ -18,4 +18,9 @@ public class Move {
     public Position getEnd() {
         return end;
     }
+
+    @Override
+    public String toString(){
+        return "Start: "+start.getCol() + "," + start.getRow() + "\tEnd: " + end.getCol() + "," +end.getRow();
+    }
 }

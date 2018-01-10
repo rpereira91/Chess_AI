@@ -5,14 +5,18 @@ import java.awt.*;
 
 public class GameFrame extends JFrame {
     Dimension dimension = new Dimension(600, 600);
+    boolean PVP;
+    int depth;
 
-    public GameFrame(){
+    public GameFrame(boolean PVP, int depth){
         super("Chess AI");
         setSize(dimension);
         createJMenuBar();
-        add(new GameBoard(), BorderLayout.CENTER);
+        add(new GameBoard(depth, PVP), BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        this.PVP = PVP;
+        this.depth = depth;
     }
 
     private void createJMenuBar(){
@@ -39,6 +43,6 @@ public class GameFrame extends JFrame {
     private void restartGame(){
         setVisible(false);
         dispose();
-        new GameFrame();
+        StartUpFrame startUpFrame = new StartUpFrame();
     }
 }

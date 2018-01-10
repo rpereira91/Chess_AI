@@ -76,6 +76,12 @@ public class ChessBoard {
         }
         return null;
     }
+    public Piece getPiece(Position position){
+        if(containsPiece(position)){
+            return gameBoard[position.getCol()][position.getRow()].getPiece();
+        }
+        return null;
+    }
     //gets the color of the piece at the Position
     public ColorType getColorType(Position position){
         if(containsPiece(position)){
@@ -190,257 +196,47 @@ public class ChessBoard {
 
 
 
-    //if the passed move was made, will the king be open to attack
-    boolean allPiecesToKing ( Position start, Position end ) {
-
-        Piece piece;
-        Piece dest = null;
-        Piece castlingPiece = null;
-
-        boolean canAttack;
-        //take the piece from the starting position
-        piece = removePiece(start);
-        //if the destination tile has a piece
-        if (containsPiece(end)) {
-            //the piece at the destination is not the same color as the piece at the start make the dest piece the end piece
-            if (getColorType(end) != piece.getPieceColorType()) dest = removePiece(end);
-            else return false; //if they are the same color we know the move won't be made and its false
-        }
-        // move the piece to the destination
-        setPiece(end, piece);
-        // if the piece is a king and it's the first move the king has made
-        if (piece.getPieceType() == PieceType.KING && piece.firstMove()) {
-            //check for a castling move, if the destination is a rook on the right side or the left side
-            if (start.getCol() - end.getCol() == -2 && start.getCol() == 4 &&
-                    containsPiece(new Position(end.getCol() + 1, end.getRow())) &&
-                    getPieceType(new Position(end.getCol() + 1, end.getRow())) == PieceType.ROOK) {
-                //check if it's the rook's first move
-                if (!(castlingPiece = removePiece(new Position(end.getCol() + 1, end.getRow()))).firstMove())
-                    setPiece(new Position(end.getCol() + 1, end.getRow()), castlingPiece);
-                else setPiece(new Position(end.getCol() - 1, end.getRow()), castlingPiece);
-            }
-            else if (start.getCol() - end.getCol() == 2 && start.getCol() == 4 &&
-                    containsPiece(new Position(end.getCol() - 2, end.getRow())) &&
-                    getPieceType(new Position(end.getCol() - 2, end.getRow())) == PieceType.ROOK) {
-                if ((castlingPiece = removePiece(new Position(end.getCol() - 2, end.getRow()))).firstMove()) {
-                    setPiece(new Position(end.getCol() + 1, end.getRow()), castlingPiece);
-                } else {
-                    setPiece(new Position(end.getCol() - 2, end.getRow()), castlingPiece);
-                }
-            }
-        }
-        //check if any of the enemy pieces can attack the king if the castling has been completed
-        if (getColorType(end) == ColorType.WHITE) {
-            canAttack = colorCanAttackKing(ColorType.BLACK);
-        } else {
-            canAttack = colorCanAttackKing(ColorType.WHITE);
-        }
-        piece = removePiece(end);
-        //undo the castling if it did happen
-        if (piece.getPieceType() == PieceType.KING && piece.firstMove()) { // put castle back
-            if (start.getCol() - end.getCol() == -2 && castlingPiece != null && castlingPiece.firstMove()) {
-                setPiece(new Position(end.getCol() + 1, end.getRow()), removePiece(new Position(end.getCol() - 1, end.getRow())));
-            } else if (start.getCol() - end.getCol() == 2 && castlingPiece != null && castlingPiece.firstMove()) {
-                setPiece(new Position(end.getCol() - 2, end.getRow()), removePiece(new Position(end.getCol() + 1, end.getRow())));
-            }
-        }
-        //reset the pieces
-        if (dest != null) {
-            setPiece(end, dest);
-        }
-        setPiece(start, piece);
-        //confirm the attack possibilities
-        return canAttack;
-    }
-    //returns true if any of the passed through color type can attack the king
-    boolean colorCanAttackKing(ColorType colorType ) {
-        //run through the entire gameBoard
-        for (int i = 0 ; i < 8 ; i++) {
-            for (int j = 0 ; j < 8 ; j++) {
-                //if that position has a piece that is the same color as the passed by value
-                if (containsPiece(new Position(i, j)) && getColorType(new Position(i, j)) == colorType) {
-                    if (positionCanAttackKing(new Position(i, j))) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    // true if the passed position can can attack the king
-    boolean positionCanAttackKing ( Position position ) {
-
-        for (int i = 0 ; i < 8 ; i++) {
-            for (int j = 0 ; j < 8 ; j++) {
-                //if the current location has a piece that is a king of the opposite color as the piece passed to it
-                if (containsPiece(new Position(i, j)) &&
-                        getPieceType(new Position(i, j)) == PieceType.KING &&
-                        getColorType(new Position(i, j)) != getColorType(position)) {
-                    //if the move from the passed position to the new one is legal that position can attack the king
-                    if (isLegalMove(position, new Position(i, j)) &&
-                            checkPiecePath(position, new Position(i, j), getPieceType(position))) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+//    //if the passed move was made, will the king be open to attack
+//
+//    //returns true if any of the passed through color type can attack the king
+//    boolean colorCanAttackKing(ColorType colorType ) {
+//        //run through the entire gameBoard
+//        for (int i = 0 ; i < 8 ; i++) {
+//            for (int j = 0 ; j < 8 ; j++) {
+//                //if that position has a piece that is the same color as the passed by value
+//                if (containsPiece(new Position(i, j)) && getColorType(new Position(i, j)) == colorType) {
+//                    if (positionCanAttackKing(new Position(i, j))) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
+//    // true if the passed position can can attack the king
+//    boolean positionCanAttackKing ( Position position ) {
+//
+//        for (int i = 0 ; i < 8 ; i++) {
+//            for (int j = 0 ; j < 8 ; j++) {
+//                //if the current location has a piece that is a king of the opposite color as the piece passed to it
+//                if (containsPiece(new Position(i, j)) &&
+//                        getPieceType(new Position(i, j)) == PieceType.KING &&
+//                        getColorType(new Position(i, j)) != getColorType(position)) {
+//                    //if the move from the passed position to the new one is legal that position can attack the king
+//                    if (isLegalMove(position, new Position(i, j)) &&
+//                            checkPiecePath(position, new Position(i, j), getPieceType(position))) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
     //checks to see if a particular move from one position to another is legal
     public boolean isLegalMove(Position start, Position end){
         if(containsPiece(start)) {
             if(gameBoard[start.getCol()][start.getRow()].getPiece().legalMove(start,end))
                 return true;
-        }
-        return false;
-    }
-    //checks the path for each piece type
-    public boolean pawnPath(Position start, Position end){
-        //check to see if the pawn is moving in the same column
-        if(start.getCol() == end.getCol()){
-            //if the piece is moving down and it's the first move check if the destination and the tile in the middle are occpied
-            if(start.getRow() - end.getRow() == -2)
-                if (!gameBoard[start.getCol()][start.getRow() + 1].tileOccupied()
-                        && gameBoard[end.getCol()][end.getRow()].tileOccupied())
-                    return true;
-            //if the piece is moving up and it's the first move, same logic as above
-            else if(start.getRow() - end.getRow() == 2)
-                if (!gameBoard[start.getCol()][start.getRow() - 1].tileOccupied()
-                        && gameBoard[end.getCol()][end.getRow()].tileOccupied())
-                    return true;
-            else if(Math.abs(start.getRow()-end.getRow()) == 1)
-                if (!containsPiece(end))
-                    return true;
-        }
-        //then check the diagonal, if the piece is attempting to capture a piece
-        else if(Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 1){
-            if(containsPiece(end)) return true;
-        }
-        //if none of these conditions are met, return false
-        return false;
-    }
-    //the bishop's path is checked here
-    public boolean bishopPath(Position start, Position end){
-        //if the piece is moving upwards in the right direction check the path for occupied tiles
-        if(start.getCol() < end.getCol() && start.getRow() > end.getRow()) {
-            for (int i = start.getCol() + 1; i < end.getCol(); i++) {
-                for (int j = start.getRow() - 1; j > end.getRow(); j--) {
-                    if(gameBoard[i][j].tileOccupied()) return false;
-                }
-            }
-        }
-        //if the piece is moving upwards in the left direction check the path for occupied tiles
-        else if (start.getCol() > end.getCol() && start.getRow() > end.getRow()){
-            for (int i = start.getCol() - 1; i > end.getCol(); i--) {
-                for (int j = start.getRow() - 1; j > end.getRow(); j--) {
-                    if(gameBoard[i][j].tileOccupied()) return false;
-                }
-            }
-        }
-        //if the piece is moving down and to the right check the path for occupied tiles
-        else if(start.getCol() < end.getCol() && start.getRow() < end.getRow()){
-            for (int i = start.getCol() + 1; i < end.getCol(); i++) {
-                for (int j = start.getRow()+1; j < end.getRow(); j++) {
-                    if(gameBoard[i][j].tileOccupied()) return false;
-                }
-            }
-        }
-        //if the piece is moving down and to the left check the path for occupied tiles
-        else if(start.getCol() > end.getCol() && start.getRow() < end.getRow()){
-            for (int i = start.getCol() - 1; i > end.getCol() ; i--) {
-                for (int j = start.getRow() + 1; j < end.getRow(); j++) {
-                    if(gameBoard[i][j].tileOccupied()) return false;
-                }
-
-            }
-        }
-        //if there aren't any tiles in the path return true
-        return true;
-    }
-    //the rooks path is checked here
-    public boolean rookPath(Position start, Position end){
-        //if the rook is moving in the same row
-        if(start.getRow() == end.getRow() && start.getCol() != end.getCol()){
-            //check the right or the left depending on how the piece is moving
-            if(start.getCol() < end.getCol()){
-                for (int i = start.getCol() + 1; i < end.getCol(); i++) {
-                    if(gameBoard[i][start.getRow()].tileOccupied()) return false;
-                }
-            }else{
-                for (int i = start.getCol() - 1; i > end.getCol() ; i--) {
-                    if(gameBoard[i][end.getRow()].tileOccupied()) return false;
-                }
-            }
-        }
-        //if the rook is moving in the same column
-        else if(start.getRow() != end.getRow() && start.getCol() == end.getCol()){
-            if(start.getRow() < end.getRow()){
-                for (int i = start.getRow() + 1; i < end.getRow(); i++) {
-                    if(gameBoard[start.getCol()][i].tileOccupied()) return false;
-                }
-            }else{
-                for (int i = start.getRow() - 1; i > end.getRow() ; i--) {
-                    if(gameBoard[start.getCol()][i].tileOccupied()) return false;
-                }
-            }
-        }
-        return false;
-    }
-    //if both the rook's path and bishop's path are clear the path for the queen is also clear
-    //since the queen mimics both the rook's and the bishop's path
-    public boolean queenPath(Position start, Position end){
-        if(rookPath(start,end) && bishopPath(start,end))
-            return true;
-        return false;
-    }
-
-    public boolean kingPath(Position start, Position end){
-        //if its the king's first move
-        if (gameBoard[start.getCol()][start.getRow()].getPiece().firstMove()) {
-            // if the king is castling on the left side or the right side of the king
-            if (start.getCol() == 4 && start.getCol() - end.getCol() == -2 &&
-                    !gameBoard[start.getCol() - 1][start.getRow()].tileOccupied() &&
-                    !gameBoard[start.getCol() - 2][start.getRow()].tileOccupied() &&
-                    !gameBoard[start.getCol() - 3][start.getRow()].tileOccupied()) {
-
-                if (gameBoard[start.getCol() - 4][start.getRow()].tileOccupied())
-                    if (gameBoard[start.getCol() - 4][start.getRow()].getPiece().firstMove())
-                        if (gameBoard[start.getCol() - 4][start.getRow()].getPiece().getPieceType() == PieceType.ROOK)
-                            return true;
-                return false;
-            } else if (start.getCol() == 4 && start.getCol() - end.getCol() == 2 &&
-                    !gameBoard[start.getCol() + 1][start.getCol()].tileOccupied() &&
-                    !gameBoard[start.getCol() + 2][start.getRow()].tileOccupied()) {
-                if (gameBoard[start.getCol() + 3][start.getRow()].tileOccupied())
-                    if (gameBoard[start.getCol() + 3][start.getRow()].getPiece().firstMove())
-                        if (gameBoard[start.getCol() + 3][start.getRow()].getPiece().getPieceType() == PieceType.ROOK)
-                            return true;
-                return false;
-            }
-        }
-        if ((Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 0) ||
-                (Math.abs(start.getCol() - end.getCol()) == 0 && Math.abs(start.getRow() - end.getRow()) == 1) ||
-                (Math.abs(start.getCol() - end.getCol()) == 1 && Math.abs(start.getRow() - end.getRow()) == 1))
-            return true;
-        else return false;
-
-    }
-    //universal check for path based on the piece type passed
-    public boolean checkPiecePath(Position start, Position end, PieceType pieceType){
-
-        if(pieceType == PieceType.PAWN){
-            return pawnPath(start, end);
-        }else if(pieceType == PieceType.BISHOP){
-            return bishopPath(start, end);
-        }else if(pieceType == PieceType.KNIGHT){
-            //since the knight can jump over pieces the path doesn't really matter
-            return true;
-        }else if(pieceType == PieceType.ROOK){
-            return rookPath(start, end);
-        }else if(pieceType == PieceType.QUEEN){
-            return queenPath(start, end);
-        }else if(pieceType == PieceType.KING){
-            return kingPath(start, end);
         }
         return false;
     }

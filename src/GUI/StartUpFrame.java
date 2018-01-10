@@ -13,6 +13,7 @@ import java.awt.event.ItemListener;
 
 
 public class StartUpFrame extends JFrame implements ItemListener,ActionListener {
+    GameFrame gameFrame;
     JComboBox plyDepthsList;
     int plyDepth;
     JRadioButton PVP;
@@ -61,16 +62,15 @@ public class StartUpFrame extends JFrame implements ItemListener,ActionListener 
     //TO DO: Delete
     //http://roughrecord.blogspot.ca/2012/04/create-combobox-using-jframe.html
     public void itemStateChanged(ItemEvent e){
-        plyDepth = Integer.parseInt(plyDepthsList.getSelectedItem().toString());
-        System.out.println(plyDepth);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        setVisible(false);
+        dispose();
         if(PVP.isSelected())
-            System.out.println("PVP");
+            gameFrame = new GameFrame(true, plyDepthsList.getSelectedIndex() + 1);
         else
-            System.out.println("PVAI");
-        System.out.println(plyDepthsList.getSelectedIndex() + 1);
+            gameFrame = new GameFrame(false, plyDepthsList.getSelectedIndex() + 1);
     }
 }
