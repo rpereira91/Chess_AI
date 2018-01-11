@@ -44,12 +44,13 @@ public class King extends Piece {
                 int col = current.getCol() + direction[0];
                 int row = current.getRow() + direction[1];
                 if (Position.isValid(col, row)) {
-                    //board.colorCanAttackKing(getPieceColorType(),board, new Position(col,row));
-                    if (!board.containsPiece(col, row)) {
-                        moves.add(new Position(col, row));
-                    } else {
-                        if (board.getColorType(col, row) != getPieceColorType()) {
+                    if(!board.colorCanAttackKing(getPieceColorType(),board, new Position(col,row))) {
+                        if (!board.containsPiece(col, row)) {
                             moves.add(new Position(col, row));
+                        } else {
+                            if (board.getColorType(col, row) != getPieceColorType()) {
+                                moves.add(new Position(col, row));
+                            }
                         }
                     }
                 }

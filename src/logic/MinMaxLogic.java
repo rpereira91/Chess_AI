@@ -116,13 +116,9 @@ public class MinMaxLogic {
                 //if that particular position has a piece that is the same color as the AI
                 if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) == colorType){
                     Position tilePosition = new Position(i,j);
-                    try {
                     possibleMoves = chessBoard.getPiece(tilePosition).getMoves(tilePosition);
                     for (Position position : possibleMoves) {
                             playerMoves.add(new Move(tilePosition, position));
-                        }
-                    }
-                        catch(NullPointerException exception) {
                         }
                 }
             }

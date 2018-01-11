@@ -281,33 +281,29 @@ public class ChessBoard {
         }
 
     }
-
-    public boolean colorCanAttackKing(ColorType pieceColorType, ChessBoard chessBoard, Position p) {
-        List<Position> playerMoves;
-        List<Position> possibleMoves = null;
+    public List<Move> getEnemyMoves(ColorType colorType, ChessBoard chessBoard){
+        List<Move> enemyMoves = new ArrayList<>();
+        List<Position> possibleMoves;
         for (int i = 0 ; i < 8 ; i++) {
-            for (int j = 0 ; j < 8 ; j++) {
-                //if that particular position has a piece that is the same color as the AI
-                if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) != pieceColorType){
-                    System.out.println("Getting the moves" + i + " " +j);
+            for (int j = 0; j < 8; j++) {
+                if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) != colorType) {
                     Position tilePosition = new Position(i,j);
-                    try {
-                        playerMoves = getPiece(tilePosition).getMoves(tilePosition);
-                        for (Position position : playerMoves) {
-                            possibleMoves.add(position);
+                    if (chessBoard.getPieceType(tilePosition) != PieceType.KING) {
+                        possibleMoves = chessBoard.getPiece(tilePosition).getMoves(tilePosition);
+                        for (Position position : possibleMoves) {
+                            enemyMoves.add(new Move(tilePosition, position));
                         }
-                    }
-                    catch(NullPointerException exception) {
-                    }catch (StackOverflowError ste){
                     }
                 }
             }
         }
-        for(Position pos: possibleMoves){
-            if (pos.equals(p)){
-                System.out.println("Test");
+        return enemyMoves;
+    }
+    public boolean colorCanAttackKing(ColorType pieceColorType, ChessBoard chessBoard, Position p) {
+        List<Move> possibleMoves = getEnemyMoves(pieceColorType,chessBoard);
+        for (Move mv: possibleMoves) {
+            if(mv.getEnd().equals(p))
                 return true;
-            }
         }
         return false;
     }
