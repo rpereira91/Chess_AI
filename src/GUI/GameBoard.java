@@ -117,8 +117,14 @@ public class GameBoard extends JPanel {
     }
     public void movePieces(Position start, Position end){
         if (chessBoard.isLegalMove(start, end)) {
+            if(endGame(end)){
+                if(!playerTurn)
+                    new WinState(false);
+                else
+                    new WinState(true);
+
+            }
             chessBoard.moveSpecialPiece(new Move(start, end));
-            drawBoard();
             if (end.getRow() == 0 || end.getRow() == 7) {
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
                     if(playerTurn)
@@ -127,7 +133,9 @@ public class GameBoard extends JPanel {
                         chessBoard.replacePiece(end, PieceType.QUEEN);
                 }
             }
+            drawBoard();
         }
+
     }
 
     private void resetSelectedTilesBackground(){
