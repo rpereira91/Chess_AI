@@ -37,16 +37,6 @@ public class Rook extends Piece {
         firstMove = move;
     }
     //if the piece is staying in the same row or column it's a valid move
-    @Override
-    public boolean legalMove(Position start, Position end) {
-        if(start.getRow() - end.getRow() == 0 || start.getCol() - end.getCol() == 0)
-            return true;
-        if(true){
-
-        }
-        return false;
-    }
-
     // TODO: Implement castling
     @Override
     public List<Position> getMoves(Position current){

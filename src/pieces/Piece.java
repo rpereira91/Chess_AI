@@ -37,7 +37,6 @@ public abstract class Piece {
         this.pieceColorType = pieceColorType;
     }
 
-    public abstract boolean legalMove(Position start, Position end);
     public void madeFirstMove(){
     }
     //used for the king and rook for castling and the pawn for first double jump move

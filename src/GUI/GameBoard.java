@@ -82,8 +82,7 @@ public class GameBoard extends JPanel {
                     previousTile = null;
                     return;
                 }else{
-                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position) &&
-                            chessBoard.isLegalMove(previousTile.position, tilePosition)) {
+                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position)) {
                         movePieces(previousTile.position,tilePosition);
                         playerTurn = false;
                         return;
@@ -116,7 +115,6 @@ public class GameBoard extends JPanel {
         playGame();
     }
     public void movePieces(Position start, Position end){
-        if (chessBoard.isLegalMove(start, end)) {
             chessBoard.moveSpecialPiece(new Move(start, end));
             if (end.getRow() == 0 || end.getRow() == 7) {
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
@@ -127,8 +125,6 @@ public class GameBoard extends JPanel {
                 }
             }
             drawBoard();
-        }
-        drawBoard();
         checkCheckMate();
 
     }

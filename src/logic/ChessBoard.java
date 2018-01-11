@@ -197,19 +197,6 @@ public class ChessBoard {
     }
 
 
-
-
-
-
-    //checks to see if a particular move from one position to another is legal
-    public boolean isLegalMove(Position start, Position end){
-        if(containsPiece(start)) {
-            if(gameBoard[start.getCol()][start.getRow()].getPiece().legalMove(start,end))
-                return true;
-        }
-        return false;
-    }
-
     //this handles castling and pawn moving for the first time
     public Piece moveSpecialPiece ( Move move) {
         //position variables to make it a bit easier when looking up moves

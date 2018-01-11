@@ -20,14 +20,6 @@ public class Bishop extends Piece {
         setPieceCost(3);
         setBoard(board);
     }
-    //the start and end are on a diagonal it is a valid move
-    //the absolute value is used to account for movement in both directions
-    @Override
-    public boolean legalMove(Position start, Position end) {
-        if (Math.abs(start.getCol() - end.getCol()) == Math.abs(start.getRow()-end.getRow()))
-            return true;
-        return false;
-    }
 
     @Override
     public List<Position> getMoves(Position current) {
