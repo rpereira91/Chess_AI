@@ -32,7 +32,6 @@ public class King extends Piece {
         return firstMove;
     }
 
-    // TODO: Implement
     @Override
     public List<Position> getMoves(Position current) {
         List<Position> moves = new LinkedList<>();
@@ -54,6 +53,20 @@ public class King extends Piece {
                         }
                     }
                 }
+        }
+        if(firstMove){
+            if(!board.containsPiece(1,0) &&
+                    !board.containsPiece(2,0) &&
+                    !board.containsPiece(3,0) &&
+                    board.getPieceType(new Position(0,0)) == PieceType.ROOK){
+                moves.add(new Position(0,0));
+            }
+            if(!board.containsPiece(1,7) &&
+                    !board.containsPiece(2,7) &&
+                    !board.containsPiece(3,7) &&
+                    board.getPieceType(new Position(0,7)) == PieceType.ROOK){
+                moves.add(new Position(0,7));
+            }
         }
         return moves;
     }
@@ -79,6 +92,20 @@ public class King extends Piece {
         //if the movement is on the same column and the move is one unit in either direction
         else if(Math.abs(start.getRow() - end.getRow()) == 1 && start.getCol() == end.getCol())
             return true;
+//        if(firstMove){
+//            if(!board.containsPiece(1,0) &&
+//                    !board.containsPiece(2,0) &&
+//                    !board.containsPiece(3,0) &&
+//                    board.getPieceType(new Position(0,0)) == PieceType.ROOK){
+//                return true;
+//            }
+//            if(!board.containsPiece(1,7) &&
+//                    !board.containsPiece(2,7) &&
+//                    !board.containsPiece(3,7) &&
+//                    board.getPieceType(new Position(0,7)) == PieceType.ROOK){
+//                return true;
+//            }
+//        }
         return false;
     }
 }

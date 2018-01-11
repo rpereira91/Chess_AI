@@ -7,6 +7,7 @@ package logic;
 import helper.Position;
 import pieces.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -306,5 +307,26 @@ public class ChessBoard {
                 return true;
         }
         return false;
+    }
+
+    public boolean kingInCheck(ChessBoard chessBoard, ColorType colorType){
+        for (int i = 0 ; i < 8 ; i++)
+            for (int j = 0; j < 8; j++)
+                if (chessBoard.containsPiece(i, j) && chessBoard.getPieceType(new Position(i, j)) == PieceType.KING) {
+                    if(colorCanAttackKing(colorType, chessBoard, new Position(i, j)))
+                        return true;
+                }
+        return false;
+    }
+
+    public int getKingMoves(ChessBoard chessBoard, ColorType colorType) {
+        for (int i = 0 ; i < 8 ; i++)
+            for (int j = 0; j < 8; j++)
+                if (chessBoard.containsPiece(i, j) &&
+                        chessBoard.getPieceType(new Position(i, j)) == PieceType.KING &&
+                        chessBoard.getColorType(new Position(i,j)) == colorType) {
+                    return chessBoard.getPiece(new Position(i,j)).getMoves(new Position(i,j)).size();
+                }
+        return 100;
     }
 }

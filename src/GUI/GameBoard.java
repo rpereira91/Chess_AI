@@ -117,13 +117,6 @@ public class GameBoard extends JPanel {
     }
     public void movePieces(Position start, Position end){
         if (chessBoard.isLegalMove(start, end)) {
-            if(endGame(end)){
-                if(!playerTurn)
-                    new WinState(false);
-                else
-                    new WinState(true);
-
-            }
             chessBoard.moveSpecialPiece(new Move(start, end));
             if (end.getRow() == 0 || end.getRow() == 7) {
                 if (chessBoard.getPieceType(end) == PieceType.PAWN) {
@@ -135,6 +128,8 @@ public class GameBoard extends JPanel {
             }
             drawBoard();
         }
+        drawBoard();
+        checkCheckMate();
 
     }
 
@@ -150,7 +145,6 @@ public class GameBoard extends JPanel {
         String[] pieces = {"Queen", "Rook","Bishop","Knight"};
         String defaultPiece = "Queen";
         String pieceSelected = (String) JOptionPane.showInputDialog(null, "What Piece do you want?", "Pawn Promote", JOptionPane.QUESTION_MESSAGE, null, pieces, defaultPiece);
-        System.out.println(pieceSelected);
         if(pieceSelected == null || pieceSelected.equals("Queen"))
             chessBoard.replacePiece(tilePosition, PieceType.QUEEN);
         else if(pieceSelected.equals("Rook"))
@@ -180,10 +174,23 @@ public class GameBoard extends JPanel {
         repaint();
     }
 
-    public boolean endGame(Position end){
-        if(chessBoard.getPieceType(end) == PieceType.KING){
-            return true;
+
+    public void checkCheckMate(){
+        if(kingInCheck(humanColor)) {
+            new Check(true);
+            if (chessBoard.getKingMoves(chessBoard, humanColor) < 1) {
+                new WinState(false);
+            }
         }
+        if(kingInCheck(computer.getAIColorType())) {
+            new Check(false);
+            if (chessBoard.getKingMoves(chessBoard, computer.getAIColorType()) < 1) {
+                new WinState(false);
+            }
+        }
+    }
+    public boolean kingInCheck(ColorType colorType){
+        if(chessBoard.kingInCheck(chessBoard,colorType)) return true;
         return false;
     }
 }

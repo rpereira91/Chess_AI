@@ -41,6 +41,9 @@ public class Rook extends Piece {
     public boolean legalMove(Position start, Position end) {
         if(start.getRow() - end.getRow() == 0 || start.getCol() - end.getCol() == 0)
             return true;
+        if(true){
+
+        }
         return false;
     }
 
