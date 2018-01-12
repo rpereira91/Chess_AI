@@ -76,13 +76,15 @@ public class GameBoard extends JPanel {
         Position tilePosition = tile.position;
         if (chessBoard.containsPiece(tilePosition)) {
             // We are selecting tile for first time and it's our color
-            if (previousTile == null && chessBoard.getColorType(tilePosition) != computer.getAIColorType()) {
-                previousTile = tile;
-                possiblePositions = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
-                for (Position position : possiblePositions) {
-                    positionToGameTile(position).selectTile();
+            if (previousTile == null) {
+                if (chessBoard.getColorType(tilePosition) != computer.getAIColorType()) {
+                    previousTile = tile;
+                    possiblePositions = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
+                    for (Position position : possiblePositions) {
+                        positionToGameTile(position).selectTile();
+                    }
+                    tile.selectTile();
                 }
-                tile.selectTile();
             } else {
                 // we had something selected previously
                 if (tile == previousTile){
@@ -91,17 +93,11 @@ public class GameBoard extends JPanel {
                     return;
                 }
 
-                if (chessBoard.getColorType(tilePosition) != computer.getAIColorType()){
-                    // attack
-                    if (validMove(previousTile.position, tilePosition)){
-                        ColorType currentPieceColor = chessBoard.getColorType(tilePosition);
-                        ColorType prevPieceColor = chessBoard.getColorType(previousTile.position);
-                        if (prevPieceColor != currentPieceColor) {
-                            playerMovePieces(previousTile.position, tilePosition);
-                        }else{
-                            // TODO: Castling move would be called here, right now the king just eats up rook
-                        }
-                    }
+                // attack
+                if (chessBoard.getColorType(tilePosition) == computer.getAIColorType()){
+                    playerMovePieces(previousTile.position, tilePosition);
+                }else{
+                    // TODO: Castling
                 }
             }
         }else{
