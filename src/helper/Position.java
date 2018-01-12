@@ -49,9 +49,18 @@ public class Position {
         return col >= 0 && col < 8 && row >= 0 && row < 8;
     }
 
-    public boolean equals(Position po){
-        if(this.getCol() == po.getCol() && this.getRow() == po.getRow())
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this) {
             return true;
-        return false;
+        }
+
+        if (!(obj instanceof Position)) {
+            return false;
+        }
+
+        Position other = (Position) obj;
+
+        return getRow() == other.getRow() && getCol() == other.getCol();
     }
 }
