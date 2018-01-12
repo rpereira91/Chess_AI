@@ -38,6 +38,7 @@ public class GameTile extends JPanel {
 
     public void updateTile(String pieceType){
         try {
+            removeAll();
             BufferedImage img = ImageIO.read(new File("Images/" + pieceType +".png"));
             this.add(new JLabel(new ImageIcon(img)));
         } catch (IOException e) {

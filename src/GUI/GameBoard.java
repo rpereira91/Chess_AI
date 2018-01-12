@@ -5,6 +5,7 @@ import logic.ChessBoard;
 import logic.MinMaxLogic;
 import logic.Move;
 import pieces.ColorType;
+import pieces.Piece;
 import pieces.PieceType;
 
 import javax.swing.*;
@@ -71,62 +72,69 @@ public class GameBoard extends JPanel {
         drawBoard();
     }
 
-    public void tileClickHandler(GameTile tile){
+    public void tileClickHandler(GameTile tile) {
         Position tilePosition = tile.position;
-        if (chessBoard.containsPiece(tilePosition) && chessBoard.getColorType(tilePosition) != computer.getAIColorType()){
-            // We just clicked on a non empty tile and last click was on a non empty tile
-            if (previousTile != null){
-                // Clicked on the same tile, deselect it
-                if (previousTile == tile){
+        if (chessBoard.containsPiece(tilePosition)) {
+            // We are selecting tile for first time and it's our color
+            if (previousTile == null && chessBoard.getColorType(tilePosition) != computer.getAIColorType()) {
+                previousTile = tile;
+                possiblePositions = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
+                for (Position position : possiblePositions) {
+                    positionToGameTile(position).selectTile();
+                }
+                tile.selectTile();
+            } else {
+                // we had something selected previously
+                if (tile == previousTile){
                     resetSelectedTilesBackground();
                     previousTile = null;
                     return;
-                }else{
-                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position)) {
-                        movePieces(previousTile.position,tilePosition);
-                        playerTurn = false;
-                        return;
+                }
+
+                if (chessBoard.getColorType(tilePosition) != computer.getAIColorType()){
+                    // attack
+                    if (validMove(previousTile.position, tilePosition)){
+                        ColorType currentPieceColor = chessBoard.getColorType(tilePosition);
+                        ColorType prevPieceColor = chessBoard.getColorType(previousTile.position);
+                        if (prevPieceColor != currentPieceColor) {
+                            playerMovePieces(previousTile.position, tilePosition);
+                        }else{
+                            // TODO: Castling move would be called here, right now the king just eats up rook
+                        }
                     }
-
                 }
-
-            // We just clicked on a non empty tile and it's our first click
-            }else{
-                // Selecting a piece
-                previousTile = tile;
-                possiblePositions = chessBoard.getTile(tilePosition).getPiece().getMoves(tilePosition);
-                for (Position position : possiblePositions){
-                    positionToGameTile(position).selectTile();
-                }
-
-                tile.selectTile();
             }
         }else{
-            // We clicked on an empty tile and our last click was on a tile that has a piece
-            if (previousTile != null){
-                // If this click is legal, we move and reset previousTile.
-                movePieces(previousTile.position, tilePosition);
-                playerTurn = false;
-                // Reset select state
-                resetSelectedTilesBackground();
-                previousTile = null;
+            if (previousTile != null && validMove(previousTile.position, tilePosition)){
+                playerMovePieces(previousTile.position, tilePosition);
             }
         }
-        playGame();
     }
-    public void movePieces(Position start, Position end){
-            chessBoard.moveSpecialPiece(new Move(start, end));
-            if (end.getRow() == 0 || end.getRow() == 7) {
-                if (chessBoard.getPieceType(end) == PieceType.PAWN) {
-                    if(playerTurn)
-                        pawnPromo(end);
-                    else
-                        chessBoard.replacePiece(end, PieceType.QUEEN);
-                }
-            }
-            drawBoard();
-        checkCheckMate();
 
+    private boolean validMove(Position start, Position end){
+        return chessBoard.getTile(start).getPiece().getMoves(start).contains(end);
+    }
+
+    public void movePieces(Position start, Position end){
+        chessBoard.moveSpecialPiece(new Move(start, end));
+        if (end.getRow() == 0 || end.getRow() == 7) {
+            if (chessBoard.getPieceType(end) == PieceType.PAWN) {
+                if (playerTurn)
+                    pawnPromo(end);
+                else
+                    chessBoard.replacePiece(end, PieceType.QUEEN);
+            }
+        }
+        drawBoard();
+        checkCheckMate();
+    }
+
+    private void playerMovePieces(Position start, Position end){
+        movePieces(start, end);
+        resetSelectedTilesBackground();
+        previousTile = null;
+        playerTurn = false;
+        playGame();
     }
 
     private void resetSelectedTilesBackground(){
