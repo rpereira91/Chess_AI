@@ -1,5 +1,13 @@
 package GUI;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    The game board class contains the bulk of the logic used to display the game
+ */
 import helper.Position;
 import logic.ChessBoard;
 import logic.MinMaxLogic;
