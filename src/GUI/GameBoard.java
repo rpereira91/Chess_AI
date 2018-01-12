@@ -11,7 +11,7 @@ Description:
 import helper.Position;
 import logic.ChessBoard;
 import logic.MinMaxLogic;
-import logic.Move;
+import helper.Move;
 import pieces.ColorType;
 import pieces.Piece;
 import pieces.PieceType;
@@ -191,13 +191,13 @@ public class GameBoard extends JPanel {
     public void checkCheckMate(){
         if(kingInCheck(humanColor)) {
             new Check(true);
-            if (chessBoard.getKingMoves(chessBoard, humanColor) < 1) {
+            if (chessBoard.getKingMoves(chessBoard, humanColor) < 2) {
                 new WinState(false);
             }
         }
         if(kingInCheck(computer.getAIColorType())) {
             new Check(false);
-            if (chessBoard.getKingMoves(chessBoard, computer.getAIColorType()) < 1) {
+            if (chessBoard.getKingMoves(chessBoard, computer.getAIColorType()) < 2) {
                 new WinState(false);
             }
         }

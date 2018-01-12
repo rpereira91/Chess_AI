@@ -1,4 +1,13 @@
 package GUI;
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    A window telling the user if they won or lost.
+ */
 import javax.swing.*;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;

@@ -1,6 +1,14 @@
 package logic;
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Tile class used for the logic of a tile, a game board consists of an 8x8 board of tiles
+ */
 import pieces.Piece;
-
 public class Tile {
     private Piece piece;
 

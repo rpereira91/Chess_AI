@@ -1,7 +1,14 @@
 package helper;
-
-//This is a basic Coordinate class called helper.Position, makes it easier to keep track of the
-// position as opposed to passing seperate rows and columns
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    This is a basic Coordinate class called helper.Position, makes it easier to keep track of the
+    position as opposed to passing separate rows and columns
+*/
 public class Position {
     private int row;
     private int col;
@@ -25,30 +32,23 @@ public class Position {
                 color = false;
         }
     }
-
+    //getters
     public int getRow() {
         return row;
     }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     public int getCol() {
         return col;
     }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
+    //gets the color
     public boolean getColor(){
         return color;
     }
-
+    //checks if the passed paramaters are valid or not
     public static boolean isValid(int col, int row){
         return col >= 0 && col < 8 && row >= 0 && row < 8;
     }
 
+    //checks to see if two positions are equal
     @Override
     public boolean equals(Object obj){
         if (obj == this) {

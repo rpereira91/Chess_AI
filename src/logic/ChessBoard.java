@@ -1,17 +1,22 @@
 /*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Class contains a bulk of the chess board logic
 Board eval us done using: https://chessprogramming.wikispaces.com/Evaluation
  */
 
 package logic;
 
+import helper.Move;
 import helper.Position;
 import pieces.*;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 public class ChessBoard {
     //the game gameBoard
@@ -110,7 +115,7 @@ public class ChessBoard {
         }
         return null;
     }
-
+    //gets the image based on color and piece type
     public String getImage(Position position){
         if(getPieceType(position) == PieceType.PAWN){
             if(getColorType(position) == ColorType.WHITE)
@@ -249,26 +254,10 @@ public class ChessBoard {
         if (firstMove && containsPiece(move.getStart()))
             gameBoard[move.getStart().getCol()][move.getStart().getRow()].getPiece().madeFirstMove();
 
-        // undo castling if castling has happened
-        if (getPieceType(move.getStart()) == PieceType.KING &&
-                gameBoard[move.getStart().getCol()][move.getStart().getRow()].getPiece().firstMove() &&
-                move.getStart().getCol() == 4) {
-            if (move.getStart().getCol() - move.getEnd().getCol() == -2 &&
-                    containsPiece(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())) &&
-                    getPieceType(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())) == PieceType.ROOK &&
-                    gameBoard[move.getEnd().getCol() - 1][move.getStart().getRow()].getPiece().firstMove()) {
-                setPiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow()),
-                        removePiece(new Position(move.getEnd().getCol() - 1, move.getEnd().getRow())));
-            } else if (move.getStart().getCol() - move.getEnd().getCol() == 2 &&
-                    containsPiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())) &&
-                    getPieceType(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())) == PieceType.ROOK&&
-                    gameBoard[move.getEnd().getCol() + 1][move.getStart().getRow()].getPiece().firstMove()) {
-                setPiece(new Position(move.getEnd().getCol() - 2, move.getEnd().getRow()),
-                        removePiece(new Position(move.getEnd().getCol() + 1, move.getEnd().getRow())));
-            }
-        }
 
     }
+    //gets the move list for the opposite color of the color type passed to it.
+    //it excludes the king since it's used for checking if a piece is in check
     public List<Move> getEnemyMoves(ColorType colorType, ChessBoard chessBoard){
         List<Move> enemyMoves = new ArrayList<>();
         List<Position> possibleMoves;
@@ -287,6 +276,7 @@ public class ChessBoard {
         }
         return enemyMoves;
     }
+    //checks if a particular color can attack the position passed to it
     public boolean colorCanAttackKing(ColorType pieceColorType, ChessBoard chessBoard, Position p) {
         List<Move> possibleMoves = getEnemyMoves(pieceColorType,chessBoard);
         for (Move mv: possibleMoves) {
@@ -295,7 +285,7 @@ public class ChessBoard {
         }
         return false;
     }
-
+    //Checks to see if the king is in check
     public boolean kingInCheck(ChessBoard chessBoard, ColorType colorType){
         for (int i = 0 ; i < 8 ; i++)
             for (int j = 0; j < 8; j++)
@@ -305,7 +295,7 @@ public class ChessBoard {
                 }
         return false;
     }
-
+    //gets all the moves for the king
     public int getKingMoves(ChessBoard chessBoard, ColorType colorType) {
         for (int i = 0 ; i < 8 ; i++)
             for (int j = 0; j < 8; j++)

@@ -1,11 +1,19 @@
 package logic;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Class contains the AI logic used to make new moves
+ */
+import helper.Move;
 import helper.Position;
 import pieces.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 
 public class MinMaxLogic {
@@ -22,8 +30,8 @@ public class MinMaxLogic {
     public ColorType getAIColorType() {
         return AIColorType;
     }
+    //makes the next move by calling the max function
     public Move getNextMove ( ChessBoard chessBoard) {
-
         ChessBoard cloneBoard = copyBoard(chessBoard);
         Max(cloneBoard, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
         return nextMove;

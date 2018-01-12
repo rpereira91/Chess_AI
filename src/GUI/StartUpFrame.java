@@ -1,5 +1,13 @@
 package GUI;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    The first frame the user sees when they start the game
+ */
 import javax.swing.*;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -12,10 +20,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 
-public class StartUpFrame extends JFrame implements ItemListener,ActionListener {
+public class StartUpFrame extends JFrame implements ActionListener {
     GameFrame gameFrame;
     JComboBox plyDepthsList;
-    int plyDepth;
     JRadioButton PVP;
     JRadioButton PVAI;
 
@@ -28,7 +35,7 @@ public class StartUpFrame extends JFrame implements ItemListener,ActionListener 
         JLabel gameModeLabel = new JLabel("Select the game mode: ");
         JPanel gameModeRadioButtons = new JPanel(new FlowLayout());
         ButtonGroup gameButtons = new ButtonGroup();
-
+        //radio buttons for the player vs player or player vs AI
         PVP = new JRadioButton("PVP");
         PVAI = new JRadioButton("PVAI");
         gameButtons.add(PVP);
@@ -58,12 +65,7 @@ public class StartUpFrame extends JFrame implements ItemListener,ActionListener 
         setVisible(true);
     }
 
-    //How does this work rip cry
-    //TO DO: Delete
-    //http://roughrecord.blogspot.ca/2012/04/create-combobox-using-jframe.html
-    public void itemStateChanged(ItemEvent e){
-    }
-
+    //sends the depth and the game style to a new game
     @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);

@@ -1,5 +1,13 @@
 package GUI;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    The game frame, it starts up with the params passed into it from the start up frame
+ */
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,5 +1,13 @@
 package pieces;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    King piece logic
+ */
 import helper.Position;
 import logic.ChessBoard;
 
@@ -39,18 +47,18 @@ public class King extends Piece {
         moves.add(current);
 
         for (int i=0; i < directions.length; i++){
+            //checks if there are any pieces in the path for the rook based on directions
             int[] direction = directions[i];
                 int col = current.getCol() + direction[0];
                 int row = current.getRow() + direction[1];
-                if (Position.isValid(col, row)) {
+            //if the possible position is valid check the next positions
+            if (Position.isValid(col, row)) {
                     if(!board.colorCanAttackKing(getPieceColorType(),board, new Position(col,row))) {
                         if (!board.containsPiece(col, row)) {
                             moves.add(new Position(col, row));
-                        } else {
-                            if (board.getColorType(col, row) != getPieceColorType()) {
+                        } else if (board.getColorType(col, row) != getPieceColorType()) {
                                 moves.add(new Position(col, row));
                             }
-                        }
                     }
                 }
         }

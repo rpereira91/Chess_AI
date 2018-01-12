@@ -3,7 +3,15 @@ import helper.Position;
 import logic.ChessBoard;
 
 import java.util.List;
-
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Piece super class contains the abstract logic for all the pieces
+ */
 public abstract class Piece {
 
     private PieceType pieceType; //the type of piece
