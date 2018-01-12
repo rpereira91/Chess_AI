@@ -73,7 +73,13 @@ public class GameBoard extends JPanel {
 
     public void tileClickHandler(GameTile tile){
         Position tilePosition = tile.position;
-        if (chessBoard.containsPiece(tilePosition) && chessBoard.getColorType(tilePosition) != computer.getAIColorType()){
+//        if(kingInCheck(humanColor) && (chessBoard.getPieceType(tilePosition) != PieceType.KING) || chessBoard.getPieceType(previousTile.position) != PieceType.KING){
+//            resetSelectedTilesBackground();
+//            previousTile = null;
+//            return;
+//        }
+        if (chessBoard.containsPiece(tilePosition) && (chessBoard.getColorType(tilePosition) != computer.getAIColorType()
+                || chessBoard.getPieceType(tilePosition) == PieceType.ROOK)){
             // We just clicked on a non empty tile and last click was on a non empty tile
             if (previousTile != null){
                 // Clicked on the same tile, deselect it
@@ -82,7 +88,8 @@ public class GameBoard extends JPanel {
                     previousTile = null;
                     return;
                 }else{
-                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position)) {
+                    if(chessBoard.getColorType(tilePosition) != chessBoard.getColorType(previousTile.position)&&
+                            chessBoard.validMove(chessBoard,new Move(previousTile.position,tilePosition),humanColor)) {
                         movePieces(previousTile.position,tilePosition);
                         playerTurn = false;
                         return;
@@ -103,7 +110,7 @@ public class GameBoard extends JPanel {
             }
         }else{
             // We clicked on an empty tile and our last click was on a tile that has a piece
-            if (previousTile != null){
+            if (previousTile != null && chessBoard.validMove(chessBoard,new Move(previousTile.position,tilePosition),humanColor)){
                 // If this click is legal, we move and reset previousTile.
                 movePieces(previousTile.position, tilePosition);
                 playerTurn = false;

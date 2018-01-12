@@ -195,7 +195,16 @@ public class ChessBoard {
             }
         }
     }
+    public boolean validMove(ChessBoard chessBoard, Move move, ColorType colorType){
+        List<Move> allMoves = getAllMoves(colorType,chessBoard);
 
+        for (int i = 0; i < allMoves.size(); i++) {
+            if(allMoves.get(i).getStart().equals(move.getStart()) && allMoves.get(i).getEnd().equals(move.getEnd())){
+                return true;
+            }
+        }
+        return false;
+        }
 
     //this handles castling and pawn moving for the first time
     public Piece moveSpecialPiece ( Move move) {
@@ -228,14 +237,14 @@ public class ChessBoard {
         endTile.setPiece(startTile.takePiece());
 
         //castle the pieces if if's a castling move
-        if (getPieceType(move.getEnd()) == PieceType.KING &&
-                Math.abs(move.getEnd().getCol()-move.getStart().getCol()) == 2) {
-            if (move.getEnd().getCol() == 6) movePiece(new Position(7, move.getEnd().getRow()),
-                    new Position(5, move.getEnd().getRow()));
-            else if (move.getEnd().getCol() == 2) {
-                movePiece(new Position(0, move.getEnd().getRow()),
-                        new Position(3, move.getEnd().getRow()));
-            }
+        if (getPieceType(move.getStart()) == PieceType.KING && getPieceType(move.getEnd()) == PieceType.ROOK) {
+            System.out.println("Castling");
+//            if (move.getEnd().getCol() == 6) movePiece(new Position(7, move.getEnd().getRow()),
+//                    new Position(5, move.getEnd().getRow()));
+//            else if (move.getEnd().getCol() == 2) {
+//                movePiece(new Position(0, move.getEnd().getRow()),
+//                        new Position(3, move.getEnd().getRow()));
+//            }
         }
         return endPiece;
     }
@@ -282,6 +291,22 @@ public class ChessBoard {
                             enemyMoves.add(new Move(tilePosition, position));
                         }
                     }
+                }
+            }
+        }
+        return enemyMoves;
+    }
+    public List<Move> getAllMoves(ColorType colorType, ChessBoard chessBoard){
+        List<Move> enemyMoves = new ArrayList<>();
+        List<Position> possibleMoves;
+        for (int i = 0 ; i < 8 ; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessBoard.containsPiece(new Position(i, j)) && chessBoard.getColorType(new Position(i, j)) == colorType) {
+                    Position tilePosition = new Position(i,j);
+                        possibleMoves = chessBoard.getPiece(tilePosition).getMoves(tilePosition);
+                        for (Position position : possibleMoves) {
+                            enemyMoves.add(new Move(tilePosition, position));
+                        }
                 }
             }
         }
