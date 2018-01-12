@@ -97,7 +97,12 @@ public class GameBoard extends JPanel {
                 if (chessBoard.getColorType(tilePosition) == computer.getAIColorType()){
                     playerMovePieces(previousTile.position, tilePosition);
                 }else{
-                    // TODO: Castling
+                    Piece prevPiece = chessBoard.getTile(previousTile.position).getPiece();
+                    Piece currPiece = chessBoard.getTile(tilePosition).getPiece();
+                    if (prevPiece.getPieceType() == PieceType.KING && currPiece.getPieceType() == PieceType.ROOK) {
+                        System.out.println("Would have castled!");
+                        // TODO: Castling
+                    }
                 }
             }
         }else{

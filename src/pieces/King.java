@@ -55,27 +55,17 @@ public class King extends Piece {
                 }
         }
         if(firstMove){
-            if(!board.containsPiece(1,0) &&
-                    !board.containsPiece(2,0) &&
-                    !board.containsPiece(3,0) &&
-                    board.getPieceType(new Position(0,0)) == PieceType.ROOK){
-                moves.add(new Position(0,0));
+            int row = getPieceColorType() == ColorType.BLACK ? 0 : 7;
+            if(!board.containsPiece(1,row) &&
+                    !board.containsPiece(2,row) &&
+                    !board.containsPiece(3,row) &&
+                    board.getPieceType(new Position(0,row)) == PieceType.ROOK){
+                moves.add(new Position(0,row));
             }
-            if(!board.containsPiece(1,7) &&
-                    !board.containsPiece(2,7) &&
-                    !board.containsPiece(3,7) &&
-                    board.getPieceType(new Position(0,7)) == PieceType.ROOK){
-                moves.add(new Position(0,7));
-            }
-            if(!board.containsPiece(5,0) &&
-                    !board.containsPiece(6,0) &&
-                    board.getPieceType(new Position(7,0)) == PieceType.ROOK){
-                moves.add(new Position(7,0));
-            }
-            if(!board.containsPiece(5,7) &&
-                    !board.containsPiece(6,7) &&
-                    board.getPieceType(new Position(7,7)) == PieceType.ROOK){
-                moves.add(new Position(7,7));
+            if(!board.containsPiece(5,row) &&
+                    !board.containsPiece(6,row) &&
+                    board.getPieceType(new Position(7,row)) == PieceType.ROOK){
+                moves.add(new Position(7,row));
             }
         }
         return moves;
