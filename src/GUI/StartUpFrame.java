@@ -1,3 +1,15 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    This is the first frame the user sees, it lets the user pick between Player vs AI
+    or player vs player. It also lets the player select the ply depth, the deeper the search tree goes
+    the harder it will be as it will think more moves into the future. Once the user selects those, it moves
+    on to the game frame which starts up the game
+ */
 package GUI;
 
 import javax.swing.*;
@@ -15,7 +27,7 @@ import java.awt.event.ItemListener;
 public class StartUpFrame extends JFrame implements ItemListener,ActionListener {
     GameFrame gameFrame;
     JComboBox plyDepthsList;
-    int plyDepth;
+    //radio buttons
     JRadioButton PVP;
     JRadioButton PVAI;
 
@@ -28,7 +40,7 @@ public class StartUpFrame extends JFrame implements ItemListener,ActionListener 
         JLabel gameModeLabel = new JLabel("Select the game mode: ");
         JPanel gameModeRadioButtons = new JPanel(new FlowLayout());
         ButtonGroup gameButtons = new ButtonGroup();
-
+        //add the radio buttons
         PVP = new JRadioButton("PVP");
         PVAI = new JRadioButton("PVAI");
         gameButtons.add(PVP);
@@ -63,7 +75,7 @@ public class StartUpFrame extends JFrame implements ItemListener,ActionListener 
     //http://roughrecord.blogspot.ca/2012/04/create-combobox-using-jframe.html
     public void itemStateChanged(ItemEvent e){
     }
-
+    //once the user selects start the game takes off based on the user specs
     @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);

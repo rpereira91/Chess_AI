@@ -1,4 +1,12 @@
+
 /*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Main logic for the chess board is done in this class
 Board eval us done using: https://chessprogramming.wikispaces.com/Evaluation
  */
 
@@ -29,6 +37,53 @@ public class ChessBoard {
             }
 
         }
+    }
+    public void createWinningGame(){
+        createEmptyGameBoard();
+        gameBoard[0][1].setPiece(new Rook(ColorType.BLACK, this));
+        gameBoard[7][1].setPiece(new Rook(ColorType.BLACK, this));
+        gameBoard[1][0].setPiece(new Knight(ColorType.BLACK, this));
+        gameBoard[6][0].setPiece(new Knight(ColorType.BLACK, this));
+        gameBoard[2][0].setPiece(new Bishop(ColorType.BLACK, this));
+        gameBoard[5][0].setPiece(new Bishop(ColorType.BLACK, this));
+        gameBoard[3][0].setPiece(new Queen(ColorType.BLACK, this));
+        gameBoard[4][0].setPiece(new King(ColorType.BLACK, this));
+        //set the pawns for both colors
+        gameBoard[0][3].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[0][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[1][1].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[1][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[2][1].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[2][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[3][1].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[3][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[4][3].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[4][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[5][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[6][1].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[6][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[7][1].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[7][6].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[7][3].setPiece(new Pawn(ColorType.BLACK, this));
+        gameBoard[7][5].setPiece(new Pawn(ColorType.WHITE, this));
+
+        gameBoard[0][7].setPiece(new Rook(ColorType.WHITE, this));
+        gameBoard[7][7].setPiece(new Rook(ColorType.WHITE, this));
+        gameBoard[1][7].setPiece(new Knight(ColorType.WHITE, this));
+        gameBoard[6][7].setPiece(new Knight(ColorType.WHITE, this));
+        gameBoard[2][7].setPiece(new Bishop(ColorType.WHITE, this));
+        gameBoard[2][4].setPiece(new Bishop(ColorType.WHITE, this));
+        gameBoard[5][1].setPiece(new Queen(ColorType.WHITE, this));
+        gameBoard[4][7].setPiece(new King(ColorType.WHITE, this));
+
     }
     //create a game gameBoard with pieces on it
     public void initilizeGameBoard(){

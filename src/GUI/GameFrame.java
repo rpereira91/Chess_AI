@@ -1,3 +1,10 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+ */
 package GUI;
 
 import javax.swing.*;
@@ -40,6 +47,7 @@ public class GameFrame extends JFrame {
         bar.add(settings);
         setJMenuBar(bar);
     }
+    //if the user wants to restart the game it starts a new game and disposes of the old one
     private void restartGame(){
         setVisible(false);
         dispose();

@@ -1,3 +1,12 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    This class has the logic for one tile
+ */
 package GUI;
 
 import helper.Position;
@@ -19,7 +28,7 @@ public class GameTile extends JPanel {
         setBackground();
         setVisible(true);
     }
-
+    //this is used to highlight moves, the colors are different for white and black squares
     public void selectTile(){
         setBackground(position.getColor() ? new Color(200,155,20) : new Color(255,220,135));
     }
@@ -31,11 +40,11 @@ public class GameTile extends JPanel {
     public void resetBackground(){
         setBackground();
     }
-
+    //sets the white and black tiles
     private void setBackground(){
         setBackground(position.getColor() ? Color.GRAY : Color.WHITE);
     }
-
+    //sets the image for the piece based on the name passed to it
     public void updateTile(String pieceType){
         try {
             removeAll();

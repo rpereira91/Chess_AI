@@ -1,3 +1,12 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Lets the player know if they won or lost
+ */
 package GUI;
 import javax.swing.*;
 import java.awt.FlowLayout;

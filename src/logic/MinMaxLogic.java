@@ -1,3 +1,13 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Main AI logic is in this class
+*/
+
 package logic;
 
 import helper.Position;
@@ -5,7 +15,6 @@ import pieces.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 
 public class MinMaxLogic {

@@ -1,3 +1,12 @@
+/*
+Class:
+    COSC 3P71
+Author:
+    Ralph Pereira - 4554879
+    Sammi Mak - 5931464
+Description:
+    Move Logic with positions
+*/
 package logic;
 
 import helper.Position;
