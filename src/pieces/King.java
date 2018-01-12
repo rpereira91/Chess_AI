@@ -16,6 +16,7 @@ import java.util.List;
 
 public class King extends Piece {
     private boolean firstMove;
+    //the directions a rook can move in
     private int[][] directions = {
             {-1, -1},
             {1, 1},

@@ -254,7 +254,6 @@ public class ChessBoard {
         if (firstMove && containsPiece(move.getStart()))
             gameBoard[move.getStart().getCol()][move.getStart().getRow()].getPiece().madeFirstMove();
 
-
     }
     //gets the move list for the opposite color of the color type passed to it.
     //it excludes the king since it's used for checking if a piece is in check
@@ -304,6 +303,11 @@ public class ChessBoard {
                         chessBoard.getColorType(new Position(i,j)) == colorType) {
                     return chessBoard.getPiece(new Position(i,j)).getMoves(new Position(i,j)).size();
                 }
-        return 100;
+        return -200;
+    }
+    public void swapPieces(Position start, Position end,ChessBoard chessBoard){
+        Piece temp = chessBoard.getPiece(end);
+        chessBoard.movePiece(start,end);
+        chessBoard.replacePiece(start, temp.getPieceType());
     }
 }

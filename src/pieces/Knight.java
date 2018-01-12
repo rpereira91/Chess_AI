@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Knight extends Piece {
+    //the directions a rook can move in
+
     private int[][] directions = {
             {1, 2},
             {-1, 2},

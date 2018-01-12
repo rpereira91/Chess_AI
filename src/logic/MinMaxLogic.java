@@ -104,6 +104,7 @@ public class MinMaxLogic {
         by the original number of pieces, making the mobility more important as the game progresses */
         return value + (int)Math.round(mobility*((totalPieces/32) + 0.1));
     }
+    //gets all the pieces on the board
     private List<Move> getAllPieceMoves(ChessBoard chessBoard, Position position){
         List<Move> pieceMoves = new LinkedList<>();
         try {
@@ -116,6 +117,7 @@ public class MinMaxLogic {
         }
         return pieceMoves;
     }
+    //gets all the moves of the color passed to it
     private List<Move> getAllMoves(ChessBoard chessBoard, ColorType colorType){
         //empty list that holds all the moves
         List<Move> playerMoves = new LinkedList<>();
@@ -133,11 +135,10 @@ public class MinMaxLogic {
         }
         return playerMoves;
     }
+    //the max value of the board
     private int Max ( ChessBoard chessBoard, int alpha, int beta, int boardDepth ) {
 
         Piece piece;
-        PieceType originalPiece;
-        PieceType newPiece;
         boolean madeFirstMove;
 
         int minVal;
@@ -184,12 +185,10 @@ public class MinMaxLogic {
         }
         return alpha;
     }
-
+    //the min value of the chess board
     private int Min( ChessBoard chessBoard, int alpha, int beta, int boardDepth ) {
 
         Piece piece;
-        PieceType originalPiece;
-        PieceType newPiece;
         boolean madeFirstMove;
 
         int maxVal;

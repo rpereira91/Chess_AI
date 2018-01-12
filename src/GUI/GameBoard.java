@@ -35,7 +35,7 @@ public class GameBoard extends JPanel {
 
     boolean PVP;
     int depth;
-
+    //starts a new game
     public GameBoard(int depth, boolean PVP) {
         setLayout(new GridLayout(size, size));
         setPreferredSize(dimension);
@@ -50,18 +50,17 @@ public class GameBoard extends JPanel {
         setVisible(true);
 
     }
+    //the ai makes the move here
     private void playGame(){
+        //if it's not the players turn it makes a move
         if(!playerTurn){
             Move move = computer.getNextMove(chessBoard);
             movePieces(move.getStart(),move.getEnd());
-//            if(chessBoard.containsPiece(move.getEnd()))
-//                attackMove(move.getStart(),move.getEnd());
-//            else
-//                movePieces(move.getStart(),move.getEnd());
             playerTurn = true;
         }
         drawBoard();
     }
+    //starts the tiles with click handlers for each tile
     private void initTiles(){
         for (int i=0; i < tiles.length; i++){
             for (int j=0; j < tiles[i].length; j++){
@@ -79,7 +78,7 @@ public class GameBoard extends JPanel {
         }
         drawBoard();
     }
-
+    //click handler for each tile
     public void tileClickHandler(GameTile tile) {
         Position tilePosition = tile.position;
         if (chessBoard.containsPiece(tilePosition)) {
@@ -107,9 +106,9 @@ public class GameBoard extends JPanel {
                 }else{
                     Piece prevPiece = chessBoard.getTile(previousTile.position).getPiece();
                     Piece currPiece = chessBoard.getTile(tilePosition).getPiece();
+                    //castling
                     if (prevPiece.getPieceType() == PieceType.KING && currPiece.getPieceType() == PieceType.ROOK) {
-                        System.out.println("Would have castled!");
-                        // TODO: Castling
+//                        chessBoard.swapPieces(previousTile.position,tilePosition,chessBoard);
                     }
                 }
             }
@@ -119,13 +118,14 @@ public class GameBoard extends JPanel {
             }
         }
     }
-
+    //checks if a move is valid
     private boolean validMove(Position start, Position end){
         return chessBoard.getTile(start).getPiece().getMoves(start).contains(end);
     }
-
+    //moves the piece
     public void movePieces(Position start, Position end){
         chessBoard.moveSpecialPiece(new Move(start, end));
+        //checks for pawn promo
         if (end.getRow() == 0 || end.getRow() == 7) {
             if (chessBoard.getPieceType(end) == PieceType.PAWN) {
                 if (playerTurn)
@@ -134,10 +134,11 @@ public class GameBoard extends JPanel {
                     chessBoard.replacePiece(end, PieceType.QUEEN);
             }
         }
+        //re-draws the board
         drawBoard();
         checkCheckMate();
     }
-
+    //moves the piece if it's the players turn
     private void playerMovePieces(Position start, Position end){
         movePieces(start, end);
         resetSelectedTilesBackground();
@@ -145,7 +146,7 @@ public class GameBoard extends JPanel {
         playerTurn = false;
         playGame();
     }
-
+    //resets the tile background
     private void resetSelectedTilesBackground(){
         previousTile.resetBackground();
         for (Position position : possiblePositions){
@@ -172,7 +173,7 @@ public class GameBoard extends JPanel {
     public GameTile positionToGameTile(Position position){
         return tiles[position.getCol()][position.getRow()];
     }
-
+    //redraw the board
     public void drawBoard(){
         for (int i=0; i < tiles.length; i++){
             for (int j=0; j < tiles[i].length; j++){
@@ -187,7 +188,7 @@ public class GameBoard extends JPanel {
         repaint();
     }
 
-
+    //checks to see if the player or AI is in check
     public void checkCheckMate(){
         if(kingInCheck(humanColor)) {
             new Check(true);
